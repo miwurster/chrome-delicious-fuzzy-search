@@ -1,21 +1,62 @@
-<html>
-<head><title>My Test Extension Options</title></head>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Delicious Fuzzy Search</title>
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/theme.css"/>
+</head>
 <body>
 
-Favorite Color:
-<select id="color">
-    <option value="red">red</option>
-    <option value="green">green</option>
-    <option value="blue">blue</option>
-    <option value="yellow">yellow</option>
-</select>
+<div class="container">
 
-<br>
-<div id="status"></div>
-<button id="save">Save</button>
+    <div class="page-header">
+        <h1>
+            <small>Delicious Fuzzy Search</small>
+        </h1>
+    </div>
+
+    <div class="box">
+        <div class="box-title">
+            <span class="icon"><i class="icon-wrench"></i></span>
+            <h5>Settings</h5>
+        </div>
+        <div class="box-content no-padding">
+
+            <form class="form-horizontal">
+
+                <div class="control-group">
+                    <label class="control-label" for="username">Username</label>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-user"></i></span>
+                            <input type="text" id="username" placeholder="Username">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="password">Password</label>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-lock"></i></span>
+                            <input type="password" id="password" placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-inverse">Save changes</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
 </body>
-
+<script src="vendor/js/angular.min.js"></script>
 <script src="options.js"></script>
-
 </html>
