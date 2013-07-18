@@ -1,25 +1,28 @@
 {
-  "manifest_version": 2,
+    "manifest_version": 2,
 
-  "name": "Delicious Fuzzy Search",
-  "description": "Allows you to fuzzy search your Delicious bookmarks.",
-  "version": "0.0.1",
+    "name": "Delicious Fuzzy Search",
+    "description": "Allows you to fuzzy search your Delicious bookmarks.",
+    "version": "0.0.1",
 
-  "permissions": [
-    "https://api.delicious.com/"
-  ],
+    "permissions": [
+        "http://feeds.delicious.com/"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://feeds.delicious.com; object-src 'self'",
 
-  "omnibox": { "keyword" : "dfs" },
+    "omnibox": {
+        "keyword": "dfs"
+    },
 
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png"
-  },
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png"
+    },
 
-  "options_page": "options.html",
+    "options_page": "options.html",
 
-  "background": {
-    "persistent": false,
-    "scripts": ["background.js"]
-  }
+    "background": {
+        "persistent": false,
+        "scripts": ["background.js"]
+    }
 }

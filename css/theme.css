@@ -5,6 +5,10 @@
   padding: 0 !important;
 }
 
+.cache-search {
+    margin: 10px;
+}
+
 /* Box
 =================================================================== */
 .well {
@@ -158,6 +162,10 @@
   margin-left: 0;
 }
 
+.box-content.no-padding .table {
+    margin: 0;
+}
+
 /* Notifications & Labels
 =================================================================== */
 
@@ -246,8 +254,6 @@
 .label,
 .badge {
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
-  font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 600;
   font-size: 12px;
   padding: 3px 6px;
 }

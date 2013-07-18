@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="delicious-fuzzy-search" ng-csp>
 <head>
     <meta charset="UTF-8"/>
     <title>Delicious Fuzzy Search</title>
@@ -16,7 +16,7 @@
         </h1>
     </div>
 
-    <div class="box">
+    <div class="box" ng-controller="OptionsController">
         <div class="box-title">
             <span class="icon"><i class="icon-wrench"></i></span>
             <h5>Settings</h5>
@@ -30,26 +30,50 @@
                     <div class="controls">
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-user"></i></span>
-                            <input type="text" id="username" placeholder="Username">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="password">Password</label>
-                    <div class="controls">
-                        <div class="input-prepend">
-                            <span class="add-on"><i class="icon-lock"></i></span>
-                            <input type="password" id="password" placeholder="Password">
+                            <input type="text" id="username" placeholder="Username" ng-model="data.username">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-inverse">Save changes</button>
+                    <button class="btn btn-inverse" ng-click="save()">Save changes</button>
                 </div>
 
             </form>
+
+        </div>
+    </div>
+
+    <div class="box" ng-controller="CacheController">
+        <div class="box-title">
+            <span class="icon"><i class="icon-folder-open"></i></span>
+            <h5>Data Cache</h5>
+            <div class="buttons">
+                <button class="btn btn-mini btn-inverse"
+                        ng-click="refresh()">
+                    <i class="icon-refresh icon-white"></i>
+                </button>
+            </div>
+            <span class="label label-inverse">{{ bookmarkCount() }} Bookmarks - Last Update: {{ lastUpdate() }}</span>
+        </div>
+        <div class="box-content no-padding">
+
+            <div class="cache-search input-prepend input-append">
+                <span class="add-on"><i class="icon-search"></i></span>
+                <input type="text" class="input-xlarge" ng-model="searchTerm">
+                <button class="btn" ng-click="clear()"><i class="icon-remove"></i></button>
+            </div>
+
+            <table class="table table-hover table-condensed">
+                <tr ng-repeat="bookmark in cache.bookmarks">
+                    <td><a ng-href="{{ bookmark.u }}" target="_blank">{{ bookmark.d }}</a></td>
+                    <td>
+                        <span ng-repeat="tag in bookmark.t">
+                            <span class="label label-info">{{ tag }}</span>&nbsp;
+                        </span>
+                    </td>
+                </tr>
+            </table>
 
         </div>
     </div>
@@ -58,5 +82,10 @@
 
 </body>
 <script src="vendor/js/angular.min.js"></script>
-<script src="options.js"></script>
+<script src="vendor/js/angular-resource.min.js"></script>
+<script src="vendor/js/jquery.min.js"></script>
+<script src="vendor/js/bootstrap.min.js"></script>
+<script src="vendor/js/underscore.min.js"></script>
+<script src="vendor/js/moment.min.js"></script>
+<script src="app.js"></script>
 </html>
