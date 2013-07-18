@@ -1,7 +1,7 @@
 'use strict';
 
 var NAMESPACE_OPTIONS = 'dfs-options-dev';
-var NAMESPACE_CACHE   = 'dfs-cache-dev';
+var NAMESPACE_CACHE = 'dfs-cache-dev';
 
 var module = angular.module('delicious-fuzzy-search', ['ngResource']);
 
@@ -47,6 +47,20 @@ module.factory('Delicious', [ '$resource', function ($resource) {
     return Delicious;
 }]);
 
+module.filter('fuzzyFilter', function () {
+    return function (items, searchTerm) {
+
+        if (!searchTerm || /^\s*$/.test(searchTerm)) {
+            return items;
+        }
+
+        var options = { keys: ['d', 't'] };
+        var fuse = new Fuse(items, options);
+
+        return fuse.search(searchTerm);
+    }
+});
+
 module.controller('OptionsController', function ($scope, DataStore) {
     $scope.data = {};
     $scope.data.username = '';
@@ -71,16 +85,12 @@ module.controller('CacheController', function ($scope, DataStore, Delicious) {
 
     $scope.init = function () {
         $scope.cache = DataStore.load(NAMESPACE_CACHE);
-        console.log($scope.cache);
     };
 
     $scope.refresh = function () {
         var username = DataStore.load(NAMESPACE_OPTIONS).username;
         $scope.cache.bookmarks = Delicious.load(username, function () {
             $scope.cache.lastUpdate = new Date().toJSON();
-
-            console.log($scope.cache);
-
             DataStore.save(NAMESPACE_CACHE, $scope.cache);
         });
     };

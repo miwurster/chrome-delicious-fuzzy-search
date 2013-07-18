@@ -60,12 +60,12 @@
 
             <div class="cache-search input-prepend input-append">
                 <span class="add-on"><i class="icon-search"></i></span>
-                <input type="text" class="input-xlarge" ng-model="searchTerm">
+                <input type="text" class="input-xlarge" ng-model="searchTerm" maxlength="32">
                 <button class="btn" ng-click="clear()"><i class="icon-remove"></i></button>
             </div>
 
             <table class="table table-hover table-condensed">
-                <tr ng-repeat="bookmark in cache.bookmarks">
+                <tr ng-repeat="bookmark in cache.bookmarks | fuzzyFilter:searchTerm">
                     <td><a ng-href="{{ bookmark.u }}" target="_blank">{{ bookmark.d }}</a></td>
                     <td>
                         <span ng-repeat="tag in bookmark.t">
@@ -87,5 +87,6 @@
 <script src="vendor/js/bootstrap.min.js"></script>
 <script src="vendor/js/underscore.min.js"></script>
 <script src="vendor/js/moment.min.js"></script>
+<script src="vendor/js/fuse.min.js"></script>
 <script src="app.js"></script>
 </html>
