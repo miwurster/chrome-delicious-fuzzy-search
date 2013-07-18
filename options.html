@@ -54,7 +54,7 @@
                     <i class="icon-refresh icon-white"></i>
                 </button>
             </div>
-            <span class="label label-inverse">{{ bookmarkCount() }} Bookmarks - Last Update: {{ lastUpdate() }}</span>
+            <span class="label label-inverse">{{ bookmarkCount() }} Bookmarks <span ng-show="cache.lastUpdate">- Last Update: {{ lastUpdate() }}</span></span>
         </div>
         <div class="box-content no-padding">
 

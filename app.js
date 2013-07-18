@@ -88,18 +88,29 @@ module.controller('CacheController', function ($scope, DataStore, Delicious) {
     };
 
     $scope.refresh = function () {
+        console.log('Refreshing data...');
+
         var username = DataStore.load(NAMESPACE_OPTIONS).username;
         $scope.cache.bookmarks = Delicious.load(username, function () {
             $scope.cache.lastUpdate = new Date().toJSON();
             DataStore.save(NAMESPACE_CACHE, $scope.cache);
+
+            console.log('Data has been refreshed');
+            console.log($scope.cache);
         });
     };
 
     $scope.bookmarkCount = function () {
+        if (!$scope.cache.bookmarks) {
+            return 0;
+        }
         return $scope.cache.bookmarks.length;
     };
 
     $scope.lastUpdate = function () {
+        if (!$scope.cache.lastUpdate) {
+            return undefined;
+        }
         return moment(new Date($scope.cache.lastUpdate)).format('YYYY-MM-DD HH:mm:ss');
     };
 
