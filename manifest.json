@@ -6,7 +6,7 @@
     "version": "0.0.1",
 
     "permissions": [
-        "http://feeds.delicious.com/"
+        "https://feeds.delicious.com/"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://feeds.delicious.com; object-src 'self'",
 
