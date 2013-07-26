@@ -207,7 +207,7 @@ module.filter('fuzzyFilter', function () {
         var options = { keys: ['description', 'tags'] };
         var fuse = new Fuse(items, options);
 
-        return fuse.search(searchTerm);
+        return _.uniq(fuse.search(searchTerm), true);
     }
 });
 
