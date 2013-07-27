@@ -6,6 +6,7 @@
     "version": "0.0.1",
 
     "permissions": [
+        "tabs",
         "https://api.delicious.com/",
         "https://api.del.icio.us/"
     ],
@@ -24,6 +25,6 @@
 
     "background": {
         "persistent": false,
-        "scripts": ["background.js"]
+        "page": "background.html"
     }
 }
