@@ -3,7 +3,7 @@
 
     "name": "Delicious Fuzzy Search",
     "description": "Allows you to fuzzy search your Delicious bookmarks.",
-    "version": "0.0.1",
+    "version": "0.1.0",
 
     "permissions": [
         "tabs",
