@@ -1,6 +1,6 @@
 'use strict';
 
-var NAMESPACE_CACHE = 'dfs-cache-dev';
+var NAMESPACE_CACHE = 'dfs-cache';
 
 chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
     var bookmarks = DataStore.load(NAMESPACE_CACHE).bookmarks;

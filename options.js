@@ -1,7 +1,7 @@
 'use strict';
 
-var NAMESPACE_OPTIONS = 'dfs-options-dev';
-var NAMESPACE_CACHE = 'dfs-cache-dev';
+var NAMESPACE_OPTIONS = 'dfs-options';
+var NAMESPACE_CACHE = 'dfs-cache';
 
 var module = angular.module('delicious-fuzzy-search', ['ngResource']);
 
@@ -242,6 +242,10 @@ module.controller('CacheController', function ($scope, DataStore, Delicious) {
 
     $scope.init = function () {
         $scope.cache = DataStore.load(NAMESPACE_CACHE);
+
+        if (!$scope.cache.bookmarks) {
+            $scope.cache.bookmarks = [];
+        }
     };
 
     $scope.refresh = function () {
@@ -258,8 +262,7 @@ module.controller('CacheController', function ($scope, DataStore, Delicious) {
                 DataStore.save(NAMESPACE_CACHE, $scope.cache);
             },
             function (data, status, headers, config) {
-                console.log('Error getting data from API!');
-                console.log('HTTP Code: ' + status);
+                console.log('Error getting data from Delicious API. HTTP Code: ' + status);
             }
         );
     };

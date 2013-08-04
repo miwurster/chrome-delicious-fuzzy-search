@@ -26,5 +26,13 @@
     "background": {
         "persistent": false,
         "page": "background.html"
+    },
+
+    "browser_action": {
+        "default_icon": {
+            "19": "icons/icon24.png",
+            "38": "icons/icon48.png"
+        },
+        "default_title": "Delicious Fuzzy Search"
     }
 }
