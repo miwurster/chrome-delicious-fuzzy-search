@@ -22,8 +22,24 @@ module.exports = function (grunt) {
             options: {
                 dot: true
             },
-            target: ['<%= appConfig.dir.tmp %>', '<%= appConfig.dir.target %>']
-            // , reset: ['node_modules', 'app/bower_components', '.sass-cache']
+            files: ['<%= appConfig.dir.tmp %>', '<%= appConfig.dir.target %>']
+        },
+
+        sass: {
+            compile: {
+                options: {
+                    outputStyle: 'expanded'
+                },
+                files: {
+                    // '<%= appConfig.dir.tmp %>/styles/css/app.css': '<%= appConfig.dir.src %>/styles/app.scss'
+                }
+            }
+        },
+        cssmin: {
+            options: {
+                banner: '<%= appConfig.banner %>',
+                keepSpecialComments: 0
+            }
         },
         htmlmin: {
             release: {
@@ -34,43 +50,27 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         cwd: '<%= appConfig.dir.src %>',
-                        src: ['*.html', 'views/*.html'],
-                        dest: '<%= appConfig.dir.target %>'
+                        dest: '<%= appConfig.dir.target %>',
+                        src: ['views/*.html']
                     }
                 ]
             }
         },
-        sass: {
-            compile: {
-                options: {
-                    outputStyle: 'expanded'
-                },
+        processhtml: {
+            release: {
                 files: {
-                    '<%= appConfig.dir.tmp %>/styles/css/app.css': '<%= appConfig.dir.src %>/styles/app.scss'
+                    // TODO
+                    // '<%= appConfig.dir.target %>/index.html': ['<%= appConfig.dir.target %>/index.html']
                 }
             }
         },
-        cssmin: {
+        uglify: {
             options: {
-                banner: '<%= appConfig.banner %>',
-                keepSpecialComments: 0
-            }
-        },
-        useminPrepare: {
-            html: '<%= appConfig.dir.src %>/index.html',
-            options: {
-                dest: '<%= appConfig.dir.target %>'
-            }
-        },
-        usemin: {
-            html: ['<%= appConfig.dir.target %>/{,*/}*.html'],
-            css: ['<%= appConfig.dir.target %>/styles/{,*/}*.css'],
-            options: {
-                dirs: ['<%= appConfig.dir.target %>']
+                banner: '<%= appConfig.banner %>'
             }
         },
         copy: {
-            release: {
+            files: {
                 files: [
                     {
                         expand: true,
@@ -78,40 +78,9 @@ module.exports = function (grunt) {
                         cwd: '<%= appConfig.dir.src %>',
                         dest: '<%= appConfig.dir.target %>',
                         src: [
-                            'images/**/*',
-                            'views/**/*',
-                            '*.xml'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        cwd: '<%= appConfig.dir.src %>/bower_components/ionicons',
-                        dest: '<%= appConfig.dir.target %>/styles/css',
-                        src: [
-                            'fonts/*'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        dot: true,
-                        cwd: '<%= appConfig.dir.src %>/bower_components/topcoat',
-                        dest: '<%= appConfig.dir.target %>/styles',
-                        src: [
-                            'font/*'
-                        ]
-                    }
-                ]
-            },
-            watch: {
-                files: [
-                    {
-                        expand: true,
-                        dot: true,
-                        cwd: '<%= appConfig.dir.tmp %>/concat',
-                        dest: '<%= appConfig.dir.target %>',
-                        src: [
-                            'scripts/**/*'
+                            // TODO
+                            //'images/**/*',
+                            //'views/**/*'
                         ]
                     }
                 ]
@@ -120,59 +89,17 @@ module.exports = function (grunt) {
         concat: {
             // Mostly handled by 'usemin' task
         },
-        uglify: {
+        useminPrepare: {
             options: {
-                banner: '<%= appConfig.banner %>'
-            }
-        },
-        processhtml: {
-            release: {
-                files: {
-                    '<%= appConfig.dir.target %>/index.html': ['<%= appConfig.dir.target %>/index.html']
-                }
-            }
-        },
-        compress: {
-            release: {
-                options: {
-                    archive: 'dist/<%= pkg.name %>.zip',
-                    mode: 'zip'
-                },
-                expand: true,
-                cwd: 'dist/',
-                src: ['**/*'],
-                dest: '/'
-            }
-        },
-        watch: {
-            app: {
-                files: [
-                    '<%= appConfig.dir.src %>/**/*',
-                    '!<%= appConfig.dir.src %>/bower_components/**/*',
-                    '!<%= appConfig.dir.src %>/images/**/*',
-                    '!<%= appConfig.dir.src %>/styles/font/*'
-                ],
-                tasks: ['compile-watch'],
-                options: {
-                    livereload: '<%= connect.options.livereload %>'
-                }
-            }
-        },
-        connect: {
-            options: {
-                port: 9009,
-                // Change this to '0.0.0.0' to access the server from outside.
-                hostname: 'localhost',
-                livereload: 35729
+                dest: '<%= appConfig.dir.target %>'
             },
-            livereload: {
-                options: {
-                    open: true,
-                    base: [
-                        '<%= appConfig.dir.tmp %>',
-                        '<%= appConfig.dir.src %>'
-                    ]
-                }
+            html: '<%= appConfig.dir.src %>/views/options.html'
+        },
+        usemin: {
+            html: ['<%= appConfig.dir.target %>/{,*/}*.html'],
+            css: ['<%= appConfig.dir.target %>/styles/{,*/}*.css'],
+            options: {
+                dirs: ['<%= appConfig.dir.target %>']
             }
         },
         jshint: {
@@ -190,11 +117,10 @@ module.exports = function (grunt) {
 
     ]);
 
-
     grunt.registerTask('compile', [
-        'clean:target',
+        'clean',
         'useminPrepare',
-        'copy:release',
+        'copy',
         'sass',
         'concat',
         'cssmin',
@@ -204,39 +130,9 @@ module.exports = function (grunt) {
         'processhtml'
     ]);
 
-    grunt.registerTask('compile-watch', [
-        'clean:target',
-        'useminPrepare',
-        'copy',
-        'sass',
-        'concat',
-        'cssmin',
-        'htmlmin',
-        'copy:watch',
-        'usemin',
-        'processhtml'
-    ]);
-
-    grunt.registerTask('build', [
-        'jshint',
+    grunt.registerTask('default', [
+        // 'jshint', // TODO
         'test',
         'compile'
-    ]);
-
-    grunt.registerTask('release', [
-        'build',
-        'compress'
-    ]);
-
-
-    grunt.registerTask('server', [
-        'connect',
-        'watch'
-    ]);
-
-
-    grunt.registerTask('default', [
-        'build',
-        'server'
     ]);
 };
