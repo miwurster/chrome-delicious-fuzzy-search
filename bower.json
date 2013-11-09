@@ -1,0 +1,13 @@
+{
+    "name": "delicious-fuzzy-search",
+    "version": "0.9.0",
+    "dependencies": {
+        "angular": "~1.2.0",
+        "underscore": "~1.5.2",
+        "momentjs": "~2.4.0",
+        "jquery": "~1.9.1",
+        "bootstrap": "~3.0.2",
+        "ionicons": "~1.3.3"
+    },
+    "devDependencies": {}
+}
