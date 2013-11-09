@@ -22,6 +22,41 @@
         </h1>
     </div>
 
+    <div class="panel panel-default" data-ng-controller="SearchController">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="ion ion-search"></span> Search
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form role="form">
+                <label for="searchTerm" class="sr-only">Username</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="ion ion-search"></span>
+                    </span>
+                    <input type="text" id="searchTerm" class="form-control"
+                           placeholder="Search term..." data-ng-model="searchTerm"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" data-ng-click="resetSearch()">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <table class="table table-hover">
+            <tr ng-repeat="bookmark in searchResult">
+                <td><a ng-href="{{ bookmark.url }}" target="_blank">{{ bookmark.description }}</a></td>
+                <td>
+                    <span ng-repeat="tag in bookmark.tags | tokenize">
+                        <span class="label label-primary">{{ tag }}</span>&nbsp;
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
     <div class="panel panel-default" data-ng-controller="OptionsController">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -84,6 +119,7 @@
 <script src="../scripts/app.js"></script>
 <script src="../scripts/controller/optionController.js"></script>
 <script src="../scripts/controller/backgroundController.js"></script>
+<script src="../scripts/controller/searchController.js"></script>
 <!-- endbuild -->
 
 </body>
