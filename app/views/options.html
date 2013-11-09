@@ -29,8 +29,8 @@
             </h3>
         </div>
         <div class="panel-body">
-            <div data-ng-show="utils.isBlank(data.username)" class="alert alert-warning">
-                No user is specified. Please complete the form below.
+            <div data-ng-show="isCacheEmpty()" class="alert alert-warning">
+                User account is not specified. Please complete the form below.
             </div>
             <form role="form">
                 <fieldset>
@@ -42,7 +42,7 @@
                             <input type="text"
                                    id="username"
                                    placeholder="Username"
-                                   data-ng-model="data.username"
+                                   data-ng-model="username"
                                    class="form-control"/>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             <input type="password"
                                    id="password"
                                    placeholder="Password"
-                                   data-ng-model="data.password"
+                                   data-ng-model="password"
                                    class="form-control">
                         </div>
                     </div>

@@ -2,6 +2,7 @@
     "name": "Delicious Fuzzy Search",
     "description": "Allows you to fuzzy search your Delicious bookmarks.",
     "version": "0.9.0",
+    "author": "Michael Wurster",
     "homepage_url": "https://github.com/miwurster/chrome-delicious-fuzzy-search",
     "manifest_version": 2,
     "permissions": [
@@ -26,4 +27,6 @@
         "default_icon": "images/icon24.png",
         "default_popup": "options.html"
     }
+
+
 }
