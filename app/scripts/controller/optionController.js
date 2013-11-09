@@ -14,5 +14,11 @@ angular.module('delicious-fuzzy-search')
             DataStore.save($scope.CONST.NAMESPACE_OPTIONS, $scope.data);
         };
 
+        $scope.resetCredentials = function () {
+            $scope.data.username = '';
+            $scope.data.password = '';
+            $scope.save();
+        };
+
         $scope.init();
     }]);

@@ -9,9 +9,64 @@
     <!-- build:css styles/css/vendors.css -->
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../bower_components/ionicons/css/ionicons.css">
+    <link rel="stylesheet" href="../bower_components/angular/angular-csp.css">
     <!-- endbuild -->
 </head>
 <body>
+
+<div class="container">
+
+    <div class="page-header">
+        <h1>
+            <small>Delicious Fuzzy Search</small>
+        </h1>
+    </div>
+
+    <div class="panel panel-default" data-ng-controller="OptionsController">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="ion ion-ios7-gear"></span> Settings
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div data-ng-show="utils.isBlank(data.username)" class="alert alert-warning">
+                No user is specified. Please complete the form below.
+            </div>
+            <form role="form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input type="text"
+                               id="username"
+                               placeholder="Username"
+                               data-ng-model="data.username"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input type="password"
+                               id="password"
+                               placeholder="Password"
+                               data-ng-model="data.password"
+                               class="form-control">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-primary" data-ng-click="save()">Save changes</button>
+            <button type="button" class="btn btn-danger pull-right" data-ng-click="resetCredentials()">Reset
+                credentials
+            </button>
+        </div>
+    </div>
+
+</div>
+
 
 <!-- build:js scripts/vendors.js -->
 <script src="../bower_components/fuse.js/fuse.js"></script>
