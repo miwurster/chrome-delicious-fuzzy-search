@@ -2,7 +2,7 @@
 
 'use strict';
 
-angular.module('miwurster.base64', []).factory('base64', [ function () {
+angular.module('miwurster.base64', []).service('Base64', [ function () {
     var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
     function utf8_encode(string) {
