@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('delicious-fuzzy-search', [
+    'miwurster.base64',
     'miwurster.datastore'
 ]);
 

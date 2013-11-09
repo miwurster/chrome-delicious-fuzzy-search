@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('delicious-fuzzy-search', [
-        'miwurster.base64'
-    ])
+angular.module('delicious-fuzzy-search')
     .factory('Delicious', [ '$http', 'Base64', function ($http, Base64) {
         var Delicious = {};
 

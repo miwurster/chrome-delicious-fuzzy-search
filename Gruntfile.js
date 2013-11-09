@@ -97,6 +97,19 @@ module.exports = function (grunt) {
                         ]
                     }
                 ]
+            },
+            watch: {
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= appConfig.dir.tmp %>/concat',
+                        dest: '<%= appConfig.dir.target %>',
+                        src: [
+                            'scripts/**/*'
+                        ]
+                    }
+                ]
             }
         },
         concat: {
@@ -123,6 +136,16 @@ module.exports = function (grunt) {
                 'Gruntfile.js',
                 '<%= appConfig.dir.src %>/scripts/{,*/}*.js'
             ]
+        },
+        watch: {
+            app: {
+                files: [
+                    '<%= appConfig.dir.src %>/**/*',
+                    '!<%= appConfig.dir.src %>/bower_components/**/*',
+                    '!<%= appConfig.dir.src %>/images/**/*'
+                ],
+                tasks: ['compile-watch']
+            }
         }
     });
 
@@ -133,12 +156,26 @@ module.exports = function (grunt) {
     grunt.registerTask('compile', [
         'clean',
         'useminPrepare',
-        'copy',
+        'copy:files',
+        'copy:fonts',
         'sass',
         'concat',
         'cssmin',
         'htmlmin',
         'uglify',
+        'usemin'
+    ]);
+
+    grunt.registerTask('compile-watch', [
+        'clean',
+        'useminPrepare',
+        'copy:files',
+        'copy:fonts',
+        'sass',
+        'concat',
+        'cssmin',
+        'htmlmin',
+        'copy:watch',
         'usemin'
     ]);
 

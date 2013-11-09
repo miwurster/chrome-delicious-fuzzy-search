@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('miwurster.datastore', []).factory('DataStore', function () {
+angular.module('miwurster.datastore', []).factory('DataStore', [ function () {
     var DataStore = {};
 
     DataStore.load = function (namespace) {
@@ -13,4 +13,4 @@ angular.module('miwurster.datastore', []).factory('DataStore', function () {
     };
 
     return DataStore;
-});
+}]);

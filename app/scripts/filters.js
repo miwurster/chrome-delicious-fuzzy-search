@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('delicious-fuzzy-search', [])
+angular.module('delicious-fuzzy-search')
     .filter('fuzzyFilter', function () {
         return function (items, searchTerm) {
 
