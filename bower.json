@@ -1,6 +1,6 @@
 {
   "name": "delicious-fuzzy-search",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "dependencies": {
     "angular": "~1.2.0",
     "underscore": "~1.5.2",
