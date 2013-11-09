@@ -2,18 +2,6 @@
 
 var NAMESPACE_CACHE = 'dfs-cache';
 
-chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
-    var bookmarks = DataStore.load(NAMESPACE_CACHE).bookmarks;
-
-    var search = fuzzySearch(bookmarks, text);
-
-    suggest(search);
-});
-
-chrome.omnibox.onInputEntered.addListener(function (text) {
-    chrome.tabs.create({'url': text});
-});
-
 var DataStore = {
     load: function (namespace) {
         var result = localStorage.getItem(namespace);
@@ -42,3 +30,15 @@ function fuzzySearch(items, searchTerm) {
 
     return result;
 }
+
+chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
+    var bookmarks = DataStore.load(NAMESPACE_CACHE).bookmarks;
+
+    var search = fuzzySearch(bookmarks, text);
+
+    suggest(search);
+});
+
+chrome.omnibox.onInputEntered.addListener(function (text) {
+    chrome.tabs.create({'url': text});
+});

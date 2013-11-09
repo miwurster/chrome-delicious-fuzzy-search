@@ -21,6 +21,9 @@
     "devel": true,
     "globals": {
         "angular": false,
-        "_": false
+        "_": false,
+        "chrome": false,
+        "Fuse": false,
+        "$": false
     }
 }

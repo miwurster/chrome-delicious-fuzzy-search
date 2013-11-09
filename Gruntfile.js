@@ -11,7 +11,7 @@ module.exports = function (grunt) {
             target: 'dist',
             tmp: '.tmp'
         },
-        banner: '/*! <%= pkg.description %> | <%= grunt.template.today("yyyy-mm-dd HH:MM") %> */\n'
+        banner: '/*! <%= pkg.name %> | <%= grunt.template.today("yyyy-mm-dd HH:MM") %> */\n'
     };
 
     grunt.initConfig({
@@ -49,19 +49,11 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= appConfig.dir.src %>',
+                        cwd: '<%= appConfig.dir.src %>/views',
                         dest: '<%= appConfig.dir.target %>',
-                        src: ['views/*.html']
+                        src: ['*.html']
                     }
                 ]
-            }
-        },
-        processhtml: {
-            release: {
-                files: {
-                    // TODO
-                    // '<%= appConfig.dir.target %>/index.html': ['<%= appConfig.dir.target %>/index.html']
-                }
             }
         },
         uglify: {
@@ -78,9 +70,30 @@ module.exports = function (grunt) {
                         cwd: '<%= appConfig.dir.src %>',
                         dest: '<%= appConfig.dir.target %>',
                         src: [
-                            // TODO
-                            //'images/**/*',
-                            //'views/**/*'
+                            'manifest.json',
+                            'images/**/*'
+                        ]
+                    }
+                ]
+            },
+            fonts: {
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= appConfig.dir.src %>/bower_components/ionicons',
+                        dest: '<%= appConfig.dir.target %>/styles',
+                        src: [
+                            'fonts/*'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= appConfig.dir.src %>/bower_components/bootstrap/dist',
+                        dest: '<%= appConfig.dir.target %>/styles',
+                        src: [
+                            'fonts/*'
                         ]
                     }
                 ]
@@ -126,12 +139,11 @@ module.exports = function (grunt) {
         'cssmin',
         'htmlmin',
         'uglify',
-        'usemin',
-        'processhtml'
+        'usemin'
     ]);
 
     grunt.registerTask('default', [
-        // 'jshint', // TODO
+        'jshint',
         'test',
         'compile'
     ]);
