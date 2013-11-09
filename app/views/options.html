@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="../bower_components/ionicons/css/ionicons.css">
     <link rel="stylesheet" href="../bower_components/angular/angular-csp.css">
     <!-- endbuild -->
+    <!-- build:css(.tmp) styles/css/app.css -->
+    <link rel="stylesheet" href="styles/css/app.css">
+    <!-- endbuild -->
 </head>
 <body>
 
@@ -44,17 +47,17 @@
                     </span>
                 </div>
             </form>
+            <div class="in-progress text-center" ng-class="{ 'hidden': !inProgress }">
+                <span class="ion ion-loading-a"></span>
+            </div>
         </div>
-        <table class="table table-hover">
-            <tr ng-repeat="bookmark in searchResult">
-                <td><a ng-href="{{ bookmark.url }}" target="_blank">{{ bookmark.description }}</a></td>
-                <td>
-                    <span ng-repeat="tag in bookmark.tags | tokenize">
-                        <span class="label label-primary">{{ tag }}</span>&nbsp;
-                    </span>
-                </td>
-            </tr>
-        </table>
+        <div class="list-group">
+            <a class="list-group-item" ng-repeat="bookmark in searchResult"
+               target="_blank" ng-href="{{ bookmark.url }}">
+                <span class="badge">{{ bookmark.tags }}</span>
+                {{ bookmark.description }}
+            </a>
+        </div>
     </div>
 
     <div class="panel panel-default" data-ng-controller="OptionsController">

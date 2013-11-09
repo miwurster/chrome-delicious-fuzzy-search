@@ -49,6 +49,9 @@ angular.module('delicious-fuzzy-search', [
     }])
     .filter('tokenize', function () {
         return function (item) {
+
+            console.log(item);
+
             return item.split(' ');
         };
     });
