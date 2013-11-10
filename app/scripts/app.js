@@ -6,7 +6,8 @@ angular.module('delicious-fuzzy-search', [
     ])
     .run(['$rootScope', function ($rootScope) {
         $rootScope.CONST = {
-            NAMESPACE_OPTIONS: 'dfs-options'
+            NAMESPACE_OPTIONS: 'dfs-options',
+            SEARCH_DELAY: 300
         };
         $rootScope.utils = {
             isEmpty: function (text) {
@@ -46,12 +47,4 @@ angular.module('delicious-fuzzy-search', [
             $http.defaults.headers.common.Authorization = '';
         };
         return Delicious;
-    }])
-    .filter('tokenize', function () {
-        return function (item) {
-
-            console.log(item);
-
-            return item.split(' ');
-        };
-    });
+    }]);

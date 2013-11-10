@@ -2,7 +2,8 @@
 
 angular.module('delicious-fuzzy-search')
     .controller('BackgroundController', [ '$scope', 'DataStore', 'Delicious', function ($scope, DataStore, Delicious) {
-        $scope.fuzzySearch = function (items, searchTerm) {
+
+        var fuzzySearch = function (items, searchTerm) {
             var result = [];
             if ($scope.utils.isBlank(searchTerm)) {
                 return result;
@@ -17,23 +18,23 @@ angular.module('delicious-fuzzy-search')
             });
             return result;
         };
-        $scope.inputListener = function (text, suggest) {
+
+        var inputListener = function (text, suggest) {
             console.log('Listener triggered...');
             var conf = DataStore.load($scope.CONST.NAMESPACE_OPTIONS);
             Delicious.get(
                 conf.username,
                 conf.password,
                 function (data, status, headers, config) {
-                    var result = $scope.fuzzySearch(data, text);
-                    console.log('Result size: ' + result.length);
-                    suggest(result);
+                    suggest(fuzzySearch(data, text));
                 },
                 function (data, status, headers, config) {
                     console.log('Error getting data from Delicious API. HTTP Code: ' + status);
                 }
             );
         };
-        $scope.openOrFocusOptionsPage = function () {
+
+        var openOrFocusOptionsPage = function () {
             var optionsUrl = chrome.extension.getURL('options.html');
             chrome.tabs.query({}, function (extensionTabs) {
                 var found = false;
@@ -49,13 +50,14 @@ angular.module('delicious-fuzzy-search')
                 }
             });
         };
+
         $scope.init = function () {
-            chrome.omnibox.onInputChanged.addListener(_.debounce($scope.inputListener, 500));
+            chrome.omnibox.onInputChanged.addListener(_.debounce(inputListener, $scope.CONST.SEARCH_DELAY));
             chrome.omnibox.onInputEntered.addListener(function (text) {
                 chrome.tabs.create({'url': text});
             });
             chrome.browserAction.onClicked.addListener(function (tab) {
-                $scope.openOrFocusOptionsPage();
+                openOrFocusOptionsPage();
             });
             chrome.extension.onConnect.addListener(function (port) {
                 var tab = port.sender.tab;
@@ -64,9 +66,10 @@ angular.module('delicious-fuzzy-search')
                     if (info.selection.length > maxLength) {
                         info.selection = info.selection.substring(0, maxLength);
                     }
-                    $scope.openOrFocusOptionsPage();
+                    openOrFocusOptionsPage();
                 });
             });
         };
+
         $scope.init();
     }]);

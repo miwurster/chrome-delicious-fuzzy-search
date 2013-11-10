@@ -2,25 +2,28 @@
 
 angular.module('delicious-fuzzy-search')
     .controller('SearchController', [ '$scope', 'DataStore', 'Delicious', function ($scope, DataStore, Delicious) {
+
         var fuzzySearch = function (items, searchTerm) {
             if ($scope.utils.isBlank(searchTerm)) {
                 return [];
             }
+
             var options = { keys: ['description', 'tags'] };
             var fuse = new Fuse(items, options);
+
             return _.uniq(fuse.search(searchTerm), true);
         };
-        $scope.inProgress = false;
-        $scope.searchTerm = '';
-        $scope.searchResult = [];
-        $scope.inputListener = function () {
+
+        var inputListener = function () {
             console.log('Listener triggered...');
+
             if ($scope.utils.isBlank($scope.searchTerm)) {
                 console.log('Empty search term; do nothing!');
                 $scope.searchResult = [];
                 return;
             }
             $scope.inProgress = true;
+
             var conf = DataStore.load($scope.CONST.NAMESPACE_OPTIONS);
             Delicious.get(
                 conf.username,
@@ -36,12 +39,20 @@ angular.module('delicious-fuzzy-search')
                 }
             );
         };
+
+        $scope.inProgress = false;
+
+        $scope.searchTerm = '';
+        $scope.searchResult = [];
+
         $scope.resetSearch = function () {
             $scope.searchTerm = '';
             $scope.searchResult = [];
         };
+
         $scope.init = function () {
-            $scope.$watch('searchTerm', _.debounce($scope.inputListener, 300));
+            $scope.$watch('searchTerm', _.debounce(inputListener, $scope.CONST.SEARCH_DELAY));
         };
+
         $scope.init();
     }]);
