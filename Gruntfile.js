@@ -137,6 +137,18 @@ module.exports = function (grunt) {
                 '<%= appConfig.dir.src %>/scripts/{,*/}*.js'
             ]
         },
+        compress: {
+            release: {
+                options: {
+                    archive: '<%= appConfig.dir.target %>/<%= pkg.name %>.zip',
+                    mode: 'zip'
+                },
+                expand: true,
+                cwd: '<%= appConfig.dir.target %>',
+                src: ['**/*'],
+                dest: '/'
+            }
+        },
         watch: {
             app: {
                 files: [
@@ -177,6 +189,11 @@ module.exports = function (grunt) {
         'htmlmin',
         'copy:watch',
         'usemin'
+    ]);
+
+    grunt.registerTask('release', [
+        'default',
+        'compress'
     ]);
 
     grunt.registerTask('default', [
