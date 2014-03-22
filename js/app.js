@@ -52,8 +52,9 @@ angular.module('delicious-fuzzy-search')
         }])
 
     .config(['$httpProvider', function ($httpProvider) {
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-        $httpProvider.defaults.useXDomain = true;
+
+        $httpProvider.defaults.withCredentials = true;
+        // $httpProvider.defaults.useXDomain = true;
     }])
 
     .run(['$rootScope', '$location', '$state', function ($rootScope, $location, $state) {
