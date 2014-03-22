@@ -4,10 +4,13 @@
         {{ accessToken }}
     </p>
 </div>
+<div ng-show="!accessToken && !error">
+    <h1 class="cover-heading"><span class="icon ion-loading-c"></span></h1>
+</div>
 <div ng-show="error">
     <alert type="'danger'">
         <h4>Oops! You got an error!</h4>
-        <p>An error occured while trying to request your personal access token ({{ error.code }}).</p>
+        <p>An error occurred while trying to request your personal access token (reason: {{ error.code }}).</p>
         <p>Please try again:<br><br><a href="{{ requestUrl }}" class="btn btn-default">Request Access Token</a></p>
     </alert>
 </div>
