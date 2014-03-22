@@ -61,6 +61,7 @@ body {
 .footer {
     color: #fff;
     color: rgba(255, 255, 255, .7);
+    padding: 15px;
 }
 
 .footer-links li:first-child {
