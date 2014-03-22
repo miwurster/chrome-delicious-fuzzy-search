@@ -7,7 +7,7 @@ angular.module('delicious-fuzzy-search')
     .constant('consts', {
         APP_KEY: '9bb4def552ddd6ec30f5427f2f29b162',
         APP_KEY_SECRET: '66b65558747ccc5c57d765ff2e1c9635',
-        REDIRECT_URL: 'http://miwurster.github.io/chrome-delicious-fuzzy-search'
+        REDIRECT_URL: 'https://miwurster.github.io/chrome-delicious-fuzzy-search'
     })
 
     .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function ($locationProvider, $stateProvider, $urlRouterProvider) {
