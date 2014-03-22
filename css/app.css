@@ -1,0 +1,101 @@
+
+a,
+a:focus,
+a:hover {
+    color: #fff;
+}
+
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+    color: #333;
+    text-shadow: none;
+    background-color: #fff;
+    border: 1px solid #fff;
+}
+
+html,
+body {
+    height: 100%;
+    background-color: #333;
+}
+
+body {
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
+}
+
+.site-wrapper {
+    display: table;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+.site-wrapper-inner {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.cover-container {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.inner {
+    padding: 30px;
+}
+
+.cover {
+    padding: 0 20px;
+}
+
+.cover .btn-lg {
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.footer {
+    color: #999;
+    color: rgba(255, 255, 255, .5);
+}
+
+.footer-links li:first-child {
+    padding-left: 0;
+}
+
+.footer-links li {
+    display: inline;
+    padding: 0 2px;
+}
+
+@media (min-width: 768px) {
+    .footer {
+        position: fixed;
+        bottom: 0;
+    }
+
+    .site-wrapper-inner {
+        vertical-align: middle;
+    }
+
+    .footer,
+    .cover-container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .footer,
+    .cover-container {
+        width: 700px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        display: none;
+    }
+}
