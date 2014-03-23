@@ -1,37 +1,26 @@
 {
+    "manifest_version": 2,
     "name": "Delicious Fuzzy Search",
     "description": "Allows you to fuzzy search your Delicious bookmarks.",
-    "version": "1.0.1",
+    "version": "1.5.0",
     "author": "Michael Wurster",
     "homepage_url": "https://github.com/miwurster/chrome-delicious-fuzzy-search",
-    "manifest_version": 2,
     "permissions": [
         "tabs",
-        "https://api.delicious.com/",
-        "https://api.del.icio.us/"
+        "http://*/*",
+        "https://*/*"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://api.delicious.com https://api.del.icio.us; object-src 'self'",
-    "icons": {
-        "16": "images/icon16.png",
-        "24": "images/icon24.png",
-        "32": "images/icon32.png",
-        "48": "images/icon48.png",
-        "64": "images/icon64.png",
-        "72": "images/icon72.png",
-        "96": "images/icon96.png",
-        "128": "images/icon128.png",
-        "256": "images/icon256.png"
-    },
-    "omnibox": {
-        "keyword": "dfs"
-    },
     "options_page": "options.html",
-    "browser_action": {
-        "default_title": "Delicious Fuzzy Search",
-        "default_icon": "images/icon24.png"
-    },
-    "background": {
-        "page": "background.html",
-        "persistent": false
+    "icons": {
+        "16": "icons/icon16.png",
+        "24": "icons/icon24.png",
+        "32": "icons/icon32.png",
+        "48": "icons/icon48.png",
+        "64": "icons/icon64.png",
+        "72": "icons/icon72.png",
+        "96": "icons/icon96.png",
+        "128": "icons/icon128.png",
+        "256": "icons/icon256.png"
     }
 }
