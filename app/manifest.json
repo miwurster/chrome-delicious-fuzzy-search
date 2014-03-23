@@ -12,6 +12,20 @@
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://api.delicious.com https://api.del.icio.us; object-src 'self'",
     "options_page": "options.html",
+    "content_scripts": [
+        {
+            "matches": [
+                "http://miwurster.github.io/chrome-delicious-fuzzy-search/robots.txt*"
+            ],
+            "js": [
+                "js/components/oauth2-interceptor.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "web_accessible_resources": [
+        "options.html"
+    ],
     "icons": {
         "16": "icons/icon16.png",
         "24": "icons/icon24.png",
