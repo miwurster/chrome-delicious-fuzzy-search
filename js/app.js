@@ -69,15 +69,15 @@ angular.module('delicious-fuzzy-search')
             + '&redirect_uri=' + consts.REDIRECT_URL;
 
 
-        $http.defaults.headers.common.Accept = 'application/json';
-        $http.defaults.headers.common.Authorization = 'Basic YWRtaW46YWRtaW4=';
-        $http({method: 'GET', url: 'https://dev.mygympoint.com/rest/users/current'})
-            .success(function (data, status, headers, config) {
-                console.log('SUCCESS');
-            })
-            .error(function (data, status, headers, config) {
-                console.log('ERROR');
-            });
+//        $http.defaults.headers.common.Accept = 'application/json';
+//        $http.defaults.headers.common.Authorization = 'Basic YWRtaW46YWRtaW4=';
+//        $http({method: 'GET', url: 'https://dev.mygympoint.com/rest/users/current'})
+//            .success(function (data, status, headers, config) {
+//                console.log('SUCCESS');
+//            })
+//            .error(function (data, status, headers, config) {
+//                console.log('ERROR');
+//            });
     }])
 
     .controller('delicious', ['$scope', '$log', '$http', '$state', 'consts', 'oauthCode',
@@ -93,6 +93,7 @@ angular.module('delicious-fuzzy-search')
 
             $http.defaults.withCredentials = true;
             $http.defaults.headers.common.Accept = 'application/json';
+            $http.defaults.headers.common.Authorization = '';
             $http.post(oauthUrl).
                 success(function (data, status, headers, config) {
                     var status = data.status;
