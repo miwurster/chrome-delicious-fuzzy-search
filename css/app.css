@@ -14,22 +14,6 @@ a:hover {
     border: 1px solid #fff;
 }
 
-.alert {
-    background: #A94442;
-    color: #333;
-    color: #fff;
-    /*border: 4px solid #A94442;*/
-}
-
-.alert > div > p,
-.alert > div > ul {
-    margin-bottom: 0;
-}
-
-.alert > div > p + p {
-    margin-top: 5px;
-}
-
 html,
 body {
     height: 100%;
