@@ -75,8 +75,8 @@ angular.module('delicious-fuzzy-search')
             };
 
             var inputListener = function () {
+                $scope.searchResult = [];
                 if (utils.isBlank($scope.searchTerm)) {
-                    $scope.searchResult = [];
                     return;
                 }
                 $scope.progress = true;

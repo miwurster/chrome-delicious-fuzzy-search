@@ -24,6 +24,7 @@
                                placeholder="Delicious Fuzzy Search" data-ng-model="searchTerm"/>
                     </div>
                 </form>
+                <h1 class="cover-heading" data-ng-show="progress"><span class="icon ion-loading-c"></span></h1>
                 <div class="list-group">
                     <a class="list-group-item" ng-repeat="bookmark in searchResult"
                        target="_blank" ng-href="{{ bookmark.url }}">
