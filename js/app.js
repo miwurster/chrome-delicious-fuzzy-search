@@ -106,6 +106,7 @@ angular.module('delicious-fuzzy-search')
                     }
                 }).
                 error(function (data, status, headers, config) {
-                    $log.error(data, status, headers, config);
+                    $log.error('Error getting access token:', status);
+                    $log.error(JSON.stringify(data), JSON.stringify(headers), JSON.stringify(config));
                 });
         }]);
