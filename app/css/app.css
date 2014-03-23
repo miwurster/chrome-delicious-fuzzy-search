@@ -53,6 +53,21 @@ body {
     color: #fff;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+    /* box-shadow: inset 0 0 150px rgba(0, 0, 0, .2); */
+}
+
+.settings {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 0 15px 10px 0;
+
+    font-size: 30px;
+}
+
+.settings a {
+    color: #fff;
+    color: rgba(255, 255, 255, .7);
 }
 
 .site-wrapper {

@@ -63,6 +63,10 @@ angular.module('delicious-fuzzy-search')
     .controller('tab', ['$scope', '$log', 'consts', 'bookmarks', 'utils',
         function ($scope, $log, consts, bookmarks, utils) {
 
+            $scope.gotoSettings = function () {
+                window.location = chrome.extension.getURL('options.html');
+            };
+
             var fuzzySearch = function (items, searchTerm) {
                 if (utils.isBlank(searchTerm)) {
                     return [];
