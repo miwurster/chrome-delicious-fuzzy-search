@@ -49,14 +49,10 @@ angular.module('delicious-fuzzy-search')
         $urlRouterProvider.otherwise('/site/about');
     }])
 
-    .config(['$httpProvider', function ($httpProvider) {
-        // $httpProvider.defaults.withCredentials = true;
-    }])
-
     .run(['$rootScope', '$location', '$state', function ($rootScope, $location, $state) {
-        $rootScope.$on('$stateChangeStart', function (event, nextState, newStateParams, lastState, lastStateParams) {
+        $rootScope.$on('$stateChangeStart', function (event, next) {
             var redirected = $location.absUrl().match(/\/\?code=([a-zA-Z0-9]+)/);
-            if (redirected !== null && nextState.name === 'site.about') {
+            if (redirected !== null && next.name === 'site.about') {
                 event.preventDefault();
                 $state.go('site.delicious');
             }
@@ -64,20 +60,10 @@ angular.module('delicious-fuzzy-search')
     }])
 
     .controller('site', ['$scope', 'consts', function ($scope, consts) {
-        $scope.requestUrl = 'http://delicious.com/auth/authorize'
+        $scope.home_url = consts.REDIRECT_URL;
+        $scope.request_url = 'https://delicious.com/auth/authorize'
             + '?client_id=' + consts.APP_KEY
             + '&redirect_uri=' + consts.REDIRECT_URL;
-
-
-//        $http.defaults.headers.common.Accept = 'application/json';
-//        $http.defaults.headers.common.Authorization = 'Basic YWRtaW46YWRtaW4=';
-//        $http({method: 'GET', url: 'https://dev.mygympoint.com/rest/users/current'})
-//            .success(function (data, status, headers, config) {
-//                console.log('SUCCESS');
-//            })
-//            .error(function (data, status, headers, config) {
-//                console.log('ERROR');
-//            });
     }])
 
     .controller('delicious', ['$scope', '$log', '$http', '$state', 'consts', 'oauthCode',
@@ -90,12 +76,9 @@ angular.module('delicious-fuzzy-search')
                 + '&client_secret=' + consts.APP_KEY_SECRET
                 + '&grant_type=code&code=' + oauthCode;
 
-
-            // $http.defaults.withCredentials = true;
             $http.defaults.headers.common.Accept = 'application/json';
-            // $http.defaults.headers.common.Authorization = '';
             $http.post(oauthUrl).
-                success(function (data, status, headers, config) {
+                success(function (data) {
                     var status = data.status;
                     var accessToken = data.access_token;
                     if (status === 'success') {
