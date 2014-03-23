@@ -14,6 +14,21 @@ a:hover {
     border: 1px solid #fff;
 }
 
+.cover .icon {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.cover .form-control {
+    box-shadow: 1px 1px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+.cover .list-group-item {
+    text-align: left;
+    text-shadow: none;
+    color: #555;
+}
+
 .alert {
     background: #A94442;
     color: #fff;
@@ -31,7 +46,6 @@ a:hover {
 html,
 body {
     height: 100%;
-    /* background-color: #333; */
     background-color: #008FDC;
 }
 
@@ -39,7 +53,6 @@ body {
     color: #fff;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
-    /* box-shadow: inset 0 0 100px rgba(0, 0, 0, .5); */
 }
 
 .site-wrapper {
@@ -150,6 +163,10 @@ body {
 
     .site-wrapper-inner {
         vertical-align: middle;
+    }
+
+    .site-wrapper-inner.tab {
+        vertical-align: top;
     }
 
     .header,

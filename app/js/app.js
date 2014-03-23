@@ -19,30 +19,6 @@ angular.module('delicious-fuzzy-search')
         }
     })
 
-    .config(['$httpProvider', function ($httpProvider) {
-
-
-        //$httpProvider.defaults.withCredentials = true;
-        /**
-         $httpProvider.defaults.cache = true;
-         $httpProvider.defaults.transformResponse = function (data) {
-            var posts = [];
-            var dom = $.parseXML(data);
-            $(dom).find('post').each(function () {
-                var post = {};
-                post.description = $(this).attr('description');
-                post.url = $(this).attr('href');
-                post.tags = $(this).attr('tag');
-                if (0 === post.description.length) {
-                    post.description = post.url;
-                }
-                posts.push(post);
-            });
-            return posts;
-        }
-         */
-    }])
-
     .factory('oauthRequest', ['$location', function ($location) {
         var match = $location.absUrl().match(/\?code=([a-zA-Z0-9]+)/);
         if (match !== null) {
@@ -51,8 +27,81 @@ angular.module('delicious-fuzzy-search')
         return undefined;
     }])
 
+    .factory('bookmarks', ['$log', '$http', '$q', 'consts', 'datastore', function ($log, $http, $q, consts, datastore) {
+        var conf = datastore.get(consts.APP_KEY);
+        $http.defaults.transformResponse = function (data) {
+            var posts = [];
+            try {
+                var dom = $.parseXML(data);
+                $(dom).find('post').each(function () {
+                    var post = {};
+                    post.description = $(this).attr('description');
+                    post.url = $(this).attr('href');
+                    post.tags = $(this).attr('tag');
+                    if (0 === post.description.length) {
+                        post.description = post.url;
+                    }
+                    posts.push(post);
+                });
+            } catch (e) {
+                $log.error('Could not parse received XML');
+            }
+            return posts;
+        };
+        return {
+            getList: function () {
+                var accessToken = conf.accessToken;
+                if (!accessToken) {
+                    return $q.when(undefined);
+                }
+                $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
+                return $http.get('https://api.delicious.com/v1/posts/all');
+            }
+        };
+    }])
+
+    .controller('tab', ['$scope', '$log', 'consts', 'bookmarks', 'utils',
+        function ($scope, $log, consts, bookmarks, utils) {
+
+            var fuzzySearch = function (items, searchTerm) {
+                if (utils.isBlank(searchTerm)) {
+                    return [];
+                }
+
+                var options = { keys: ['description', 'tags'] };
+                var fuse = new Fuse(items, options);
+
+                return _.uniq(fuse.search(searchTerm), true);
+            };
+
+            var inputListener = function () {
+                if (utils.isBlank($scope.searchTerm)) {
+                    $scope.searchResult = [];
+                    return;
+                }
+                $scope.progress = true;
+                bookmarks.getList().then(function (result) {
+                    var bookmarks = result.data;
+                    $scope.searchResult = fuzzySearch(bookmarks, $scope.searchTerm);
+                    $scope.progress = false;
+                }, function () {
+                    $log.error('Error getting bookmarks');
+                    $scope.searchResult = [];
+                    $scope.progress = false;
+                });
+            };
+
+            $scope.progress = false;
+
+            $scope.searchTerm = '';
+            $scope.searchResult = [];
+
+            $scope.$watch('searchTerm', _.debounce(inputListener, consts.SEARCH_DELAY));
+        }])
+
     .controller('options', ['$scope', '$log', '$http', 'consts', 'datastore', 'oauthRequest',
         function ($scope, $log, $http, consts, datastore, oauthRequest) {
+
             $scope.href = {
                 request: 'https://delicious.com/auth/authorize'
                     + '?client_id=' + consts.APP_KEY
@@ -107,16 +156,4 @@ angular.module('delicious-fuzzy-search')
             };
 
             $scope.init();
-
-
-
-//        $scope.accessToken = '7548957-672264c6df7fac333d0eede86d233599';
-//
-//        $http.defaults.headers.common.Authorization = 'Bearer ' + $scope.accessToken;
-//        $http.get('https://api.del.icio.us/v1/posts/all').success(
-//            function (data) {
-//                console.log(JSON.stringify(data));
-//            }
-//        );
-//        $http.defaults.headers.common.Authorization = '';
         }]);
