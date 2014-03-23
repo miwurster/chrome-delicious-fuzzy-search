@@ -50,7 +50,7 @@ angular.module('delicious-fuzzy-search')
     }])
 
     .config(['$httpProvider', function ($httpProvider) {
-        $httpProvider.defaults.withCredentials = true;
+        // $httpProvider.defaults.withCredentials = true;
     }])
 
     .run(['$rootScope', '$location', '$state', function ($rootScope, $location, $state) {
@@ -91,9 +91,9 @@ angular.module('delicious-fuzzy-search')
                 + '&grant_type=code&code=' + oauthCode;
 
 
-            $http.defaults.withCredentials = true;
+            // $http.defaults.withCredentials = true;
             $http.defaults.headers.common.Accept = 'application/json';
-            $http.defaults.headers.common.Authorization = '';
+            // $http.defaults.headers.common.Authorization = '';
             $http.post(oauthUrl).
                 success(function (data, status, headers, config) {
                     var status = data.status;
@@ -106,6 +106,6 @@ angular.module('delicious-fuzzy-search')
                     }
                 }).
                 error(function (data, status, headers, config) {
-                    console.log('ERROR');
+                    $log.error(data, status, headers, config);
                 });
         }]);
