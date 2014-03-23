@@ -37,47 +37,74 @@ angular.module('delicious-fuzzy-search')
          */
     }])
 
-    .controller('options', ['$scope', '$log', '$http', 'consts', function ($scope, $log, $http, consts) {
+    .factory('oauthRequest', ['$location', function ($location) {
+        var match = $location.absUrl().match(/\?code=([a-zA-Z0-9]+)/);
+        if (match !== null) {
+            return match[1];
+        }
+        return undefined;
+    }])
+
+    .controller('options', ['$scope', '$log', '$http', 'consts', 'datastore', 'oauthRequest',
+        function ($scope, $log, $http, consts, datastore, oauthRequest) {
+            $scope.href = {
+                request: 'https://delicious.com/auth/authorize'
+                    + '?client_id=' + consts.APP_KEY
+                    + '&redirect_uri=' + consts.REDIRECT_URL
+            };
+            $scope.oauthCode = oauthRequest;
+            $scope.accessToken = undefined;
 
 
 
 
 
 
+//        datastore.put(consts.APP_KEY, {
+//            accessToken: 'Foo'
+//        });
 
 
+            if (angular.isString($scope.accessToken)) {
 
-        // $scope.redirectUrl = 'chrome-extension://' + consts.EXTENSION_ID + '/options.html';
-        $scope.redirectUrl = 'http://miwurster.github.io/chrome-delicious-fuzzy-search/robots.txt';
-        // $scope.redirectUrl = 'http://miwurster.github.io/chrome-delicious-fuzzy-search';
-        $scope.clientId = consts.APP_KEY;
-        $scope.clientSecret = consts.APP_KEY_SECRET;
+            } else {
 
+            }
 
-        /*
-         var url = 'https://avosapi.delicious.com/api/v1/oauth/token'
-         + '?client_id=' + consts.APP_KEY
-         + '&client_secret=' + consts.APP_KEY_SECRET
-         // + '&grant_type=code&code=' + oauthCode;
-         + '&grant_type=credentials&username=miwurster&password=ttcyx18Mi';
+            $scope.init = function () {
+                var conf = datastore.get(consts.APP_KEY);
+                $scope.accessToken = conf.accessToken;
+            };
+            $scope.reset = function () {
+                datastore.remove(consts.APP_KEY);
+                $scope.init();
+            };
+            $scope.init();
 
-         $http.defaults.headers.common.Accept = 'application/json';
-         $http.post(url).
-         success(function (data) {
-         var status = data.status;
-         var accessToken = data.access_token;
-         if (status === 'success') {
-         $scope.accessToken = accessToken;
-         } else {
-         $scope.error = { code: status };
-         $log.error('Could not request access token:', status);
-         }
-         }).
-         error(function (data, status, headers, config) {
-         $log.error('Error getting access token:', status);
-         $log.debug(JSON.stringify(config));
-         });
-         */
+            /*
+             var url = 'https://avosapi.delicious.com/api/v1/oauth/token'
+             + '?client_id=' + consts.APP_KEY
+             + '&client_secret=' + consts.APP_KEY_SECRET
+             // + '&grant_type=code&code=' + oauthCode;
+             + '&grant_type=credentials&username=miwurster&password=ttcyx18Mi';
+
+             $http.defaults.headers.common.Accept = 'application/json';
+             $http.post(url).
+             success(function (data) {
+             var status = data.status;
+             var accessToken = data.access_token;
+             if (status === 'success') {
+             $scope.accessToken = accessToken;
+             } else {
+             $scope.error = { code: status };
+             $log.error('Could not request access token:', status);
+             }
+             }).
+             error(function (data, status, headers, config) {
+             $log.error('Error getting access token:', status);
+             $log.debug(JSON.stringify(config));
+             });
+             */
 
 //        $scope.accessToken = '7548957-672264c6df7fac333d0eede86d233599';
 //
@@ -88,4 +115,4 @@ angular.module('delicious-fuzzy-search')
 //            }
 //        );
 //        $http.defaults.headers.common.Authorization = '';
-    }]);
+        }]);

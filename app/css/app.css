@@ -1,0 +1,174 @@
+
+a,
+a:focus,
+a:hover {
+    color: #fff;
+}
+
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+    color: #333;
+    text-shadow: none;
+    background-color: #fff;
+    border: 1px solid #fff;
+}
+
+.alert {
+    background: #A94442;
+    color: #fff;
+}
+
+.alert > div > p,
+.alert > div > ul {
+    margin-bottom: 0;
+}
+
+.alert > div > p + p {
+    margin-top: 5px;
+}
+
+html,
+body {
+    height: 100%;
+    /* background-color: #333; */
+    background-color: #008FDC;
+}
+
+body {
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+    /* box-shadow: inset 0 0 100px rgba(0, 0, 0, .5); */
+}
+
+.site-wrapper {
+    display: table;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+.site-wrapper-inner {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.cover-container {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.inner {
+    padding: 30px;
+}
+
+.cover {
+    padding: 0 20px;
+}
+
+.cover .btn-lg {
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.header {
+    padding: 15px;
+}
+
+.header .brand {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.header .nav > li {
+    display: inline-block;
+}
+
+.header .nav > li + li {
+    margin-left: 20px;
+}
+
+.header .nav > li > a {
+    padding-right: 0;
+    padding-left: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    color: rgba(255, 255, 255, 1);
+    border-bottom: 2px solid transparent;
+}
+
+.header .nav > li > a:hover,
+.header .nav > li > a:focus {
+    background-color: transparent;
+    border-bottom-color: rgba(255, 255, 255, .5);
+}
+
+.header .nav > .active > a,
+.header .nav > .active > a:hover,
+.header .nav > .active > a:focus {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+@media (min-width: 768px) {
+    .header .brand {
+        float: left;
+    }
+
+    .header .nav {
+        float: right;
+    }
+}
+
+.footer {
+    color: #fff;
+    color: rgba(255, 255, 255, .7);
+    padding: 15px;
+}
+
+.footer-links li:first-child {
+    padding-left: 0;
+}
+
+.footer-links li {
+    display: inline;
+    padding: 0 2px;
+}
+
+@media (min-width: 768px) {
+    .header {
+        position: fixed;
+        top: 0;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+    }
+
+    .site-wrapper-inner {
+        vertical-align: middle;
+    }
+
+    .header,
+    .footer,
+    .cover-container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .header,
+    .footer,
+    .cover-container {
+        width: 700px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        display: none;
+    }
+}

@@ -4,12 +4,15 @@ angular.module('miwurster.simple-cache', [])
 
     .factory('datastore', [function () {
         return {
-            load: function (namespace) {
+            get: function (namespace) {
                 var result = localStorage.getItem(namespace);
                 return (result && JSON.parse(result)) || {};
             },
-            save: function (namespace, data) {
+            put: function (namespace, data) {
                 localStorage.setItem(namespace, JSON.stringify(data));
+            },
+            remove: function (namespace) {
+                localStorage.removeItem(namespace);
             }
         };
     }]);

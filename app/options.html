@@ -7,31 +7,54 @@
     <title>Settings: Delicious Fuzzy Search</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/ionicons.min.css">
-    <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/angular-csp.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
-<body>
-<div class="container">
-    <div data-ng-controller="options">
+<body ng-controller="options">
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="header clearfix">
+                <h3 class="brand">Delicious Fuzzy Search</h3>
+                <ul class="nav" ng-show="accessToken">
+                    <li><a href="#" ng-click="reset()">Reset Settings</a></li>
+                </ul>
+            </div>
 
-        {{ redirectUrl }}<br>
 
-        <a href="https://delicious.com/auth/authorize?client_id={{ clientId }}&redirect_uri={{ redirectUrl }}">
-            Request Access
-        </a>
+            <div class="inner cover" ng-show="!oauthCode">
+                <h1 class="cover-heading">Delicious Account</h1>
+                <p class="lead">
+                    Delicious Fuzzy Search for Chrome requires access to your Delicious account. Please perform the step
+                    below in order to setup this extension successfully.
+                </p>
+                <p class="lead">
+                    <a href="{{ href.request }}"
+                       class="btn btn-default btn-lg">Request Access</a>
+                </p>
+            </div>
+            <div class="inner cover" ng-show="oauthCode">
 
-        <a href="https://delicious.com/api/v1/oauth/token?client_id={{ clientId }}&client_secret={{ clientSecret }}&grant_type=code&code=2892857f5053aec6c3edbea3339553b8">
-            Do
-        </a>
+                <h1 class="cover-heading">Delicious Account</h1>
+
+                <p class="lead">
+                    Delicious Fuzzy Search for Chrome requires access to your Delicious account. Please perform the step
+                    below in order to setup this extension successfully.
+                </p>
+                <p class="lead">
+                    <a href="{{ href.request }}"
+                       class="btn btn-default btn-lg">Request Access</a>
+                </p>
+
+
+            </div>
+
+
+            <div class="footer"></div>
+        </div>
     </div>
 </div>
-<script src="js/vendor/jquery.min.js"></script>
-<script src="js/vendor/lodash.min.js"></script>
-<script src="js/vendor/fuse.min.js"></script>
-<script src="js/vendor/bootstrap.min.js"></script>
 <script src="js/vendor/angular.min.js"></script>
-<script src="js/vendor/angular-animate.min.js"></script>
-<script src="js/vendor/angular-ui-router.min.js"></script>
 <script src="js/components/utils.js"></script>
 <script src="js/components/simple-cache.js"></script>
 <script src="js/app.js"></script>
