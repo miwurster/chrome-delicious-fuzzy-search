@@ -63,8 +63,8 @@ angular.module('delicious-fuzzy-search')
         });
     }])
 
-    .controller('site', ['$scope', 'consts', '$http', function ($scope, consts, $http) {
-        $scope.requestUrl = 'https://delicious.com/auth/authorize'
+    .controller('site', ['$scope', 'consts', function ($scope, consts) {
+        $scope.requestUrl = 'http://delicious.com/auth/authorize'
             + '?client_id=' + consts.APP_KEY
             + '&redirect_uri=' + consts.REDIRECT_URL;
 
@@ -85,7 +85,7 @@ angular.module('delicious-fuzzy-search')
             if (!oauthCode) {
                 $state.go('site.about');
             }
-            var oauthUrl = 'https://avosapi.delicious.com/api/v1/oauth/token'
+            var oauthUrl = 'http://avosapi.delicious.com/api/v1/oauth/token'
                 + '?client_id=' + consts.APP_KEY
                 + '&client_secret=' + consts.APP_KEY_SECRET
                 + '&grant_type=code&code=' + oauthCode;
