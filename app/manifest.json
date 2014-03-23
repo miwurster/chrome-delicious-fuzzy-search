@@ -4,7 +4,7 @@
     "description": "Allows you to fuzzy search your Delicious bookmarks.",
     "version": "1.5.0",
     "author": "Michael Wurster",
-    "homepage_url": "https://github.com/miwurster/chrome-delicious-fuzzy-search",
+    "homepage_url": "https://miwurster.github.io/chrome-delicious-fuzzy-search",
     "permissions": [
         "tabs",
         "http://*/*",
