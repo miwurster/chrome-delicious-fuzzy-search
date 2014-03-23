@@ -88,8 +88,12 @@ angular.module('delicious-fuzzy-search')
                 + '?client_id=' + consts.APP_KEY
                 + '&client_secret=' + consts.APP_KEY_SECRET
                 + '&grant_type=code&code=' + oauthCode;
+
+
+            $http.defaults.withCredentials = true;
+            $http.defaults.headers.common.Accept = 'application/json';
             $http.post(oauthUrl).
-                success(function (data) {
+                success(function (data, status, headers, config) {
                     var status = data.status;
                     var accessToken = data.access_token;
                     if (status === 'success') {
@@ -98,5 +102,8 @@ angular.module('delicious-fuzzy-search')
                         $scope.error = { code: status };
                         $log.error('Could not request access token:', status);
                     }
+                }).
+                error(function (data, status, headers, config) {
+                    console.log('ERROR');
                 });
         }]);
