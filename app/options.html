@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Delicious Fuzzy Search</title>
+    <title>Settings: Delicious Fuzzy Search</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/ionicons.min.css">
     <link rel="stylesheet" href="css/animate.min.css">
@@ -14,6 +14,7 @@
 <div class="container">
     <div data-ng-controller="options">
 
+        {{ redirectUrl }}<br>
 
         <a href="https://delicious.com/auth/authorize?client_id={{ clientId }}&redirect_uri={{ redirectUrl }}">
             Auth
