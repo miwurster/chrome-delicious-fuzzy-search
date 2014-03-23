@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('delicious-fuzzy-search', [
-    'miwurster.utils', 'miwurster.simple-cache'
+    'miwurster.utils', 'miwurster.simple-cache', 'miwurster.alert'
 ]);
 
 angular.module('delicious-fuzzy-search')
@@ -10,7 +10,13 @@ angular.module('delicious-fuzzy-search')
         APP_KEY: '9bb4def552ddd6ec30f5427f2f29b162',
         APP_KEY_SECRET: '66b65558747ccc5c57d765ff2e1c9635',
         REDIRECT_URL: 'http://miwurster.github.io/chrome-delicious-fuzzy-search/robots.txt',
-        SEARCH_DELAY: 300
+        SEARCH_DELAY: 300,
+        MODE: {
+            CONF_REQUIRED: 'conf_required',
+            IN_PROGRESS: 'in_progress',
+            COMPLETE: 'complete',
+            ERROR: 'error'
+        }
     })
 
     .config(['$httpProvider', function ($httpProvider) {
@@ -52,59 +58,57 @@ angular.module('delicious-fuzzy-search')
                     + '?client_id=' + consts.APP_KEY
                     + '&redirect_uri=' + consts.REDIRECT_URL
             };
-            $scope.oauthCode = oauthRequest;
-            $scope.accessToken = undefined;
 
-
-
-
-
-
-//        datastore.put(consts.APP_KEY, {
-//            accessToken: 'Foo'
-//        });
-
-
-            if (angular.isString($scope.accessToken)) {
-
-            } else {
-
-            }
+            $scope.mode = consts.MODE.CONF_REQUIRED;
 
             $scope.init = function () {
                 var conf = datastore.get(consts.APP_KEY);
-                $scope.accessToken = conf.accessToken;
+                var accessToken = conf.accessToken;
+
+                if (oauthRequest) {
+                    $scope.mode = consts.MODE.IN_PROGRESS;
+                }
+
+                if (angular.isString(accessToken)) {
+                    $scope.mode = consts.MODE.COMPLETE;
+                }
+
+                if ($scope.mode === consts.MODE.IN_PROGRESS) {
+                    var url = 'https://avosapi.delicious.com/api/v1/oauth/token'
+                        + '?client_id=' + consts.APP_KEY
+                        + '&client_secret=' + consts.APP_KEY_SECRET
+                        + '&grant_type=code&code=' + oauthRequest;
+                    $http.defaults.headers.common.Accept = 'application/json';
+                    $http.post(url).
+                        success(function (data) {
+                            var status = data.status;
+                            var accessToken = data.access_token;
+                            if (status === 'success') {
+                                $scope.mode = consts.MODE.COMPLETE;
+                                datastore.put(consts.APP_KEY, {
+                                    accessToken: accessToken
+                                });
+                            } else {
+                                $scope.mode = consts.MODE.ERROR;
+                                $log.error('Could not request access token:', status);
+                            }
+                        }).
+                        error(function (data, status, headers, config) {
+                            $scope.mode = consts.MODE.ERROR;
+                            $log.error('Error getting access token:', status);
+                            $log.debug(JSON.stringify(config));
+                        });
+                }
             };
+
             $scope.reset = function () {
                 datastore.remove(consts.APP_KEY);
-                $scope.init();
+                $scope.mode = consts.MODE.CONF_REQUIRED;
             };
+
             $scope.init();
 
-            /*
-             var url = 'https://avosapi.delicious.com/api/v1/oauth/token'
-             + '?client_id=' + consts.APP_KEY
-             + '&client_secret=' + consts.APP_KEY_SECRET
-             // + '&grant_type=code&code=' + oauthCode;
-             + '&grant_type=credentials&username=miwurster&password=ttcyx18Mi';
 
-             $http.defaults.headers.common.Accept = 'application/json';
-             $http.post(url).
-             success(function (data) {
-             var status = data.status;
-             var accessToken = data.access_token;
-             if (status === 'success') {
-             $scope.accessToken = accessToken;
-             } else {
-             $scope.error = { code: status };
-             $log.error('Could not request access token:', status);
-             }
-             }).
-             error(function (data, status, headers, config) {
-             $log.error('Error getting access token:', status);
-             $log.debug(JSON.stringify(config));
-             });
-             */
 
 //        $scope.accessToken = '7548957-672264c6df7fac333d0eede86d233599';
 //
