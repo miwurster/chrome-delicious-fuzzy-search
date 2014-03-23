@@ -62,10 +62,21 @@ angular.module('delicious-fuzzy-search')
         });
     }])
 
-    .controller('site', ['$scope', 'consts', function ($scope, consts) {
+    .controller('site', ['$scope', 'consts', '$http', function ($scope, consts, $http) {
         $scope.requestUrl = 'https://delicious.com/auth/authorize'
             + '?client_id=' + consts.APP_KEY
             + '&redirect_uri=' + consts.REDIRECT_URL;
+
+
+        $http.defaults.headers.common.Accept = 'application/json';
+        $http.defaults.headers.common.Authorization = 'Basic YWRtaW46YWRtaW4=';
+        $http({method: 'GET', url: 'https://dev.mygympoint.com/rest/users/current'})
+            .success(function (data, status, headers, config) {
+                console.log('SUCCESS');
+            })
+            .error(function (data, status, headers, config) {
+                console.log('ERROR');
+            });
     }])
 
     .controller('delicious', ['$scope', '$log', '$http', '$state', 'consts', 'oauthCode',
