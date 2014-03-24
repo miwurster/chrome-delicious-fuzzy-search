@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/angular-csp.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body data-ng-controller="tab">
+<body data-ng-controller="tab" ng-cloak="searchResult">
 <div class="site-wrapper">
     <div class="site-wrapper-inner tab">
         <div class="cover-container">
@@ -24,6 +24,12 @@
                                placeholder="Delicious Fuzzy Search" data-ng-model="searchTerm"/>
                     </div>
                 </form>
+                <alert type="'danger'" data-ng-show="setupIncomplete">
+                    <h4>Setup seems to be incomplete!</h4>
+                    <p>Delicious Fuzzy Search for Chrome requires access to your Delicious account. Please
+                        perform the "Request Access" action below in order to set up this extension.</p>
+                    <p><a href="{{ href.request }}" class="btn btn-default">Request Access</a></p>
+                </alert>
                 <h1 class="cover-heading" data-ng-show="progress"><span class="icon ion-loading-c"></span></h1>
                 <div class="list-group">
                     <a class="list-group-item" ng-repeat="bookmark in searchResult"
@@ -34,7 +40,7 @@
                 </div>
             </div>
             <div class="settings">
-                <a href="#" data-ng-click="gotoSettings()"><span class="icon ion-ios7-gear"></span></a>
+                <a href="#" data-ng-click="href.settings()"><span class="icon ion-ios7-gear"></span></a>
             </div>
         </div>
     </div>

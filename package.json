@@ -1,7 +1,7 @@
 {
     "name": "delicious-fuzzy-search",
     "description": "Delicious Fuzzy Search is a Chrome browser extension allowing you to fuzzy search your Delicious bookmarks.",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "license": "MIT",
     "author": "Michael Wurster",
     "homepage": "https://miwurster.github.io/chrome-delicious-fuzzy-search",

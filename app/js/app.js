@@ -19,6 +19,10 @@ angular.module('delicious-fuzzy-search')
         }
     })
 
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.cache = true;
+    }])
+
     .factory('oauthRequest', ['$location', function ($location) {
         var match = $location.absUrl().match(/\?code=([a-zA-Z0-9]+)/);
         if (match !== null) {
@@ -60,12 +64,21 @@ angular.module('delicious-fuzzy-search')
         };
     }])
 
+    .run(['$rootScope', 'consts', function ($rootScope, consts) {
+        $rootScope.href = {
+            request: 'https://delicious.com/auth/authorize'
+                + '?client_id=' + consts.APP_KEY
+                + '&redirect_uri=' + consts.REDIRECT_URL,
+            settings: function () {
+                window.location = chrome.extension.getURL('options.html');
+            }
+        };
+    }])
+
     .controller('tab', ['$scope', '$log', 'consts', 'bookmarks', 'utils',
         function ($scope, $log, consts, bookmarks, utils) {
 
-            $scope.gotoSettings = function () {
-                window.location = chrome.extension.getURL('options.html');
-            };
+            $scope.setupIncomplete = false;
 
             var fuzzySearch = function (items, searchTerm) {
                 if (utils.isBlank(searchTerm)) {
@@ -85,8 +98,12 @@ angular.module('delicious-fuzzy-search')
                 }
                 $scope.progress = true;
                 bookmarks.getList().then(function (result) {
-                    var bookmarks = result.data;
-                    $scope.searchResult = fuzzySearch(bookmarks, $scope.searchTerm);
+                    if (result) {
+                        var bookmarks = result.data;
+                        $scope.searchResult = fuzzySearch(bookmarks, $scope.searchTerm);
+                    } else {
+                        $scope.setupIncomplete = true;
+                    }
                     $scope.progress = false;
                 }, function () {
                     $log.error('Error getting bookmarks');
@@ -105,12 +122,6 @@ angular.module('delicious-fuzzy-search')
 
     .controller('options', ['$scope', '$log', '$http', 'consts', 'datastore', 'oauthRequest',
         function ($scope, $log, $http, consts, datastore, oauthRequest) {
-
-            $scope.href = {
-                request: 'https://delicious.com/auth/authorize'
-                    + '?client_id=' + consts.APP_KEY
-                    + '&redirect_uri=' + consts.REDIRECT_URL
-            };
 
             $scope.mode = consts.MODE.CONF_REQUIRED;
 

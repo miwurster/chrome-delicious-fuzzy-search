@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Delicious Fuzzy Search",
     "description": "Allows you to fuzzy search your Delicious bookmarks.",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "author": "Michael Wurster",
     "homepage_url": "https://miwurster.github.io/chrome-delicious-fuzzy-search",
     "permissions": [
