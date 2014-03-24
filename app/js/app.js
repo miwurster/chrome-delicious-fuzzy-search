@@ -66,9 +66,9 @@ angular.module('delicious-fuzzy-search')
 
     .run(['$rootScope', 'consts', function ($rootScope, consts) {
         $rootScope.href = {
-            request: 'https://delicious.com/auth/authorize'
-                + '?client_id=' + consts.APP_KEY
-                + '&redirect_uri=' + consts.REDIRECT_URL,
+            request: 'https://delicious.com/auth/authorize' +
+                '?client_id=' + consts.APP_KEY +
+                '&redirect_uri=' + consts.REDIRECT_URL,
             settings: function () {
                 window.location = chrome.extension.getURL('options.html');
             }
@@ -138,10 +138,10 @@ angular.module('delicious-fuzzy-search')
                 }
 
                 if ($scope.mode === consts.MODE.IN_PROGRESS) {
-                    var url = 'https://avosapi.delicious.com/api/v1/oauth/token'
-                        + '?client_id=' + consts.APP_KEY
-                        + '&client_secret=' + consts.APP_KEY_SECRET
-                        + '&grant_type=code&code=' + oauthRequest;
+                    var url = 'https://avosapi.delicious.com/api/v1/oauth/token' +
+                        '?client_id=' + consts.APP_KEY +
+                        '&client_secret=' + consts.APP_KEY_SECRET +
+                        '&grant_type=code&code=' + oauthRequest;
                     $http.defaults.headers.common.Accept = 'application/json';
                     $http.post(url).
                         success(function (data) {
