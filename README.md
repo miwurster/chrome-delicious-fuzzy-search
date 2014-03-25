@@ -4,8 +4,8 @@ Delicious Fuzzy Search is a Chrome browser extension allowing you to fuzzy searc
 
 ### Features
 * Fuzzy-search filter for your bookmarks.
-* 'New Tab' Integration: Quick and easy access to your Delicious bookmars by just opening a new browser tab.
-* OAuth 2.0 Support: No username or password will be stored in your browser's local storage.
+* _New Tab_ Integration: Quick and easy access to your Delicious bookmars by just opening a new browser tab.
+* _OAuth 2.0_ Support: No username or password will be stored in your browser's local storage.
 
 ### Screenshots
 
