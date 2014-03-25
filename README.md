@@ -4,6 +4,8 @@ Delicious Fuzzy Search is a Chrome browser extension allowing you to fuzzy searc
 
 ### Screenshots
 
+#### 'New Tab' Integration
 ![alt text](http://miwurster.github.io/chrome-delicious-fuzzy-search/screens/dfs-screen-new-tab.png "'New Tab' Integration")
 
+#### Extension Settings
 ![alt text](http://miwurster.github.io/chrome-delicious-fuzzy-search/screens/dfs-screen-options.png "Extension Settings")
