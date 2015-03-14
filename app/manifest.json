@@ -1,13 +1,29 @@
 {
   "name": "__MSG_appName__",
-  "version": "0.0.1",
+  "version": "1.6.0",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
-  "icons": {
-    "16": "images/icon-16.png",
-    "128": "images/icon-128.png"
-  },
+  "author": "Michael Wurster",
+  "homepage_url": "https://miwurster.github.io/chrome-delicious-fuzzy-search",
   "default_locale": "en",
+  "icons": {
+    "16": "images/icon16.png",
+    "24": "images/icon24.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "64": "images/icon64.png",
+    "72": "images/icon72.png",
+    "96": "images/icon96.png",
+    "128": "images/icon128.png",
+    "256": "images/icon256.png"
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://api.delicious.com https://api.del.icio.us; object-src 'self'",
   "background": {
     "scripts": [
       "scripts/chromereload.js",
@@ -16,16 +32,24 @@
   },
   "browser_action": {
     "default_icon": {
-      "19": "images/icon-19.png",
-      "38": "images/icon-38.png"
+      "19": "images/icon19.png",
+      "38": "images/icon38.png"
     },
-    "default_title": "chrome delicious fuzzy search",
-    "default_popup": "popup.html"
+    "default_title": "__MSG_appName__"
   },
   "options_page": "options.html",
-  "permissions": [
-    "tabs",
-    "http://*/*",
-    "https://*/*"
+  "content_scripts": [
+    {
+      "matches": [
+        "http://miwurster.github.io/chrome-delicious-fuzzy-search/robots.txt*"
+      ],
+      "js": [
+        "scripts/oauth2-interceptor.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    "options.html"
   ]
 }
