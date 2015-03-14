@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html data-ng-app="delicious-fuzzy-search" data-ng-csp>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Settings: Delicious Fuzzy Search</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/angular-csp.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body data-ng-controller="options">
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+            <div class="header clearfix">
+                <h3 class="brand">Delicious Fuzzy Search</h3>
+                <ul class="nav" data-ng-show="mode === 'complete'">
+                    <li><a href="#" data-ng-click="reset()">Reset Settings</a></li>
+                </ul>
+            </div>
+            <div class="inner cover" data-ng-show="mode === 'complete'">
+                <h1 class="cover-heading"><span class="icon ion-checkmark"></span></h1>
+                <p class="lead">Setup Complete</p>
+            </div>
+            <div class="inner cover" data-ng-show="mode === 'conf_required'">
+                <h1 class="cover-heading">Delicious Account</h1>
+                <p class="lead">Delicious Fuzzy Search for Chrome requires access to your Delicious account. Please
+                    perform the action below in order to setup this extension.</p>
+                <p class="lead"><a href="{{ href.request }}" class="btn btn-default btn-lg">Request Access</a></p>
+            </div>
+            <div class="inner cover" data-ng-show="mode === 'in_progress'">
+                <h1 class="cover-heading"><span class="icon ion-loading-c"></span></h1>
+            </div>
+            <div class="inner cover" data-ng-show="mode === 'error'">
+                <alert type="'danger'">
+                    <h4>Oops! You got an error!</h4>
+                    <p>An error occurred while trying to request your personal access token.</p>
+                    <p>Please try again: <br><br> <a href="{{ href.request }}" class="btn btn-default">Request
+                        Access</a></p>
+                </alert>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </div>
+</div>
+<script src="js/vendor/angular.min.js"></script>
+<script src="js/components/utils.js"></script>
+<script src="js/components/simple-cache.js"></script>
+<script src="js/components/alert.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

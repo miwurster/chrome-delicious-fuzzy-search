@@ -1,1 +1,9 @@
+.tmp
 .idea
+
+node_modules
+app/bower_components
+test/bower_components
+
+dist
+package

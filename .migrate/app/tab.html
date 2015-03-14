@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html data-ng-app="delicious-fuzzy-search" data-ng-csp>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New Tab</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/angular-csp.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body data-ng-controller="tab" ng-cloak="searchResult">
+<div class="site-wrapper">
+    <div class="site-wrapper-inner tab">
+        <div class="cover-container">
+            <div class="inner cover">
+                <img class="icon" src="icons/icon64.png">
+                <h1 class="cover-heading sr-only">Delicious Fuzzy Search</h1>
+                <form role="form">
+                    <div class="form-group">
+                        <label class="sr-only" for="searchTerm">Delicious Fuzzy Search</label>
+                        <input type="text" id="searchTerm" class="form-control"
+                               placeholder="Delicious Fuzzy Search" data-ng-model="searchTerm"/>
+                    </div>
+                </form>
+                <alert type="'danger'" data-ng-show="setupIncomplete">
+                    <h4>Setup seems to be incomplete</h4>
+                    <p>Delicious Fuzzy Search for Chrome requires access to your Delicious account. Please
+                        perform the "Request Access" action below in order to set up this extension.</p>
+                    <p><a href="{{ href.request }}" class="btn btn-default">Request Access</a></p>
+                </alert>
+                <h1 class="cover-heading" data-ng-show="progress"><span class="icon ion-loading-c"></span></h1>
+                <div class="list-group">
+                    <a class="list-group-item" ng-repeat="bookmark in searchResult"
+                       target="_blank" ng-href="{{ bookmark.url }}">
+                        <span class="badge">{{ bookmark.tags }}</span>
+                        {{ bookmark.description }}
+                    </a>
+                </div>
+            </div>
+            <div class="settings">
+                <a href="#" data-ng-click="href.settings()"><span class="icon ion-ios7-gear"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/vendor/lodash.min.js"></script>
+<script src="js/vendor/fuse.min.js"></script>
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/vendor/angular.min.js"></script>
+<script src="js/components/utils.js"></script>
+<script src="js/components/simple-cache.js"></script>
+<script src="js/components/alert.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
