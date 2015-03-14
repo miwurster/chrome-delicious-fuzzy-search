@@ -1,0 +1,9 @@
+{
+  "name": "chrome-delicious-fuzzy-search",
+  "private": true,
+  "dependencies": {
+    "ionicons": "~2.0.1",
+    "angular-material": "master"
+  },
+  "devDependencies": {}
+}

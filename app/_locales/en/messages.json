@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Delicious Fuzzy Search",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Allows you to fuzzy search your Delicious bookmarks.",
+    "description": "The description of the application"
+  }
+}
