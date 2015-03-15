@@ -37,9 +37,9 @@
         <!-- SETUP INCOMPLETE STATE -->
         <div class="alert alert-danger" ng-cloak ng-if="STATE === 'ERROR'">
           <h4>Setup seems to be incomplete</h4>
-          <p>Delicious Fuzzy Search for Chrome requires access to your Delicious account. Please
+          <p>Delicious Fuzzy Search for Chrome requires access to your Delicious account.<br>Please
             perform the "Request Access" action below in order to set up this extension.</p>
-          <p><a href="{{ app.urls.oauth }}" class="btn btn-default">Request Access</a></p>
+          <p><br><a href="{{ app.urls.oauth }}" class="btn btn-default">Request Access</a></p>
         </div>
 
         <!-- IN PROGRESS STATE -->
