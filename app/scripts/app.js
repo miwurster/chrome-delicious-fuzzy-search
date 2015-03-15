@@ -20,7 +20,7 @@ angular.module('delicious-fuzzy-search', [])
       getObject: function (key) {
         return JSON.parse($window.localStorage[key] || '{}');
       }
-    }
+    };
   }])
 
   .constant('APP_KEY', '9bb4def552ddd6ec30f5427f2f29b162')
@@ -44,8 +44,11 @@ angular.module('delicious-fuzzy-search', [])
   /*
    * Init rootScope
    */
-  .run(['$rootScope', function ($rootScope) {
+  .run(['$rootScope', '$http', function ($rootScope, $http) {
     $rootScope.app = {};
+    $http.get('manifest.json').success(function (data) {
+      angular.extend($rootScope.app, data);
+    });
   }])
 
   /*
@@ -61,6 +64,14 @@ angular.module('delicious-fuzzy-search', [])
 
   .controller('SettingsController', ['$scope', '$log', '$location', '$http', '$window', '$localstorage', 'STATE', 'APP_KEY', 'APP_KEY_SECRET',
     function ($scope, $log, $location, $http, $window, $localstorage, STATE, APP_KEY, APP_KEY_SECRET) {
+
+      function getOauthCode() {
+        var match = $location.absUrl().match(/\?code=([a-zA-Z0-9]+)/);
+        if (match !== null) {
+          return match[1];
+        }
+        return undefined;
+      }
 
       $scope.STATE = STATE.INCOMPLETE;
 
@@ -111,12 +122,4 @@ angular.module('delicious-fuzzy-search', [])
           chrome.tabs.remove(tab.id);
         });
       };
-
-      function getOauthCode() {
-        var match = $location.absUrl().match(/\?code=([a-zA-Z0-9]+)/);
-        if (match !== null) {
-          return match[1];
-        }
-        return undefined;
-      }
     }]);
