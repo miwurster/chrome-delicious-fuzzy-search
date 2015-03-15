@@ -3,6 +3,11 @@
  *  - primary #1E88E5
  */
 
+/* Lists */
+ul {
+  padding: 0;
+}
+
 /* Alert */
 .alert > div > p,
 .alert > div > ul {
