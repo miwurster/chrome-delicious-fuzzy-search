@@ -96,7 +96,8 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '<%= config.dist %>',
-            '.tmp'
+            '.tmp',
+            'package'
           ]
         }]
       }
