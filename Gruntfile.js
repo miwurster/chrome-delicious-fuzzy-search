@@ -95,7 +95,7 @@ module.exports = function (grunt) {
         files: [{
           dot: true,
           src: [
-            '<%= config.dist %>/*',
+            '<%= config.dist %>',
             '.tmp'
           ]
         }]
@@ -238,7 +238,7 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>',
           src: [
             '*.{ico,png,txt}',
-            'images/{,*/}*.{webp,gif}',
+            'images/{,*/}*',
             '{,*/}*.html',
             //'styles/{,*/}*.css',
             //'styles/fonts/{,*/}*.*',

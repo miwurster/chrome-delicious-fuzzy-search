@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="delicious-fuzzy-search" ng-csp>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="Delicious Fuzzy Search is a Chrome browser extension allowing you to fuzzy search your Delicious bookmarks.">
+  <meta name="author" content="Michael Wurster">
+  <title>Delicious Fuzzy Search</title>
+  <!-- build:css({.tmp,app}) styles/main.css -->
+  <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="bower_components/angular/angular-csp.css" rel="stylesheet">
+  <link href="styles/cover.css" rel="stylesheet">
+  <link href="styles/animation.css" rel="stylesheet">
+  <link href="styles/main.css" rel="stylesheet">
+  <!-- endbuild -->
+</head>
+<body ng-controller="AppController">
+<div class="site-wrapper" ng-controller="SearchController">
+  <div class="container inner">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+
+        <!-- Options -->
+        <button class="fab fab-options" ng-click="gotoSettings()">
+          <i class="glyphicon glyphicon-cog"></i>
+        </button>
+
+        <img class="icon" src="images/icon64.png">
+        <div class="form-group inner inner-search">
+          <label class="sr-only" for="searchTerm">Delicious Fuzzy Search</label>
+          <input type="text" id="searchTerm" class="form-control"
+                 placeholder="Delicious Fuzzy Search" ng-model="searchTerm"/>
+        </div>
+
+        <!-- SETUP INCOMPLETE STATE -->
+        <div class="alert alert-danger" ng-cloak ng-if="STATE === 'ERROR'">
+          <h4>Setup seems to be incomplete</h4>
+          <p>Delicious Fuzzy Search for Chrome requires access to your Delicious account. Please
+            perform the "Request Access" action below in order to set up this extension.</p>
+          <p><a href="{{ app.urls.oauth }}" class="btn btn-default">Request Access</a></p>
+        </div>
+
+        <!-- IN PROGRESS STATE -->
+        <div class="loading" ng-if="STATE === 'IN_PROGRESS'"></div>
+
+        <!-- Couldn't find results -->
+        <div ng-cloak ng-if="STATE === 'COMPLETE' && searchResult.length === 0">
+          Couldn't find any results! Try another search term...
+        </div>
+
+        <!-- Display Search Result -->
+        <div class="list-group" ng-cloak>
+          <a class="list-group-item" ng-repeat="bookmark in searchResult"
+             ng-class="{'list-group-item-odd': $odd}"
+             target="_blank" ng-href="{{ bookmark.url }}">
+            <p class="list-group-item-text">
+              <strong>{{ bookmark.description }}</strong>
+            </p>
+            <p class="list-group-item-text">
+              <span class="label-domain">{{ bookmark.url | domain }}</span>
+              <span class="label label-primary">{{ bookmark.tags }}</span>
+            </p>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div class="masthead clearfix">-->
+<!--<div class="inner">-->
+<!--<h3 class="masthead-brand">Delicious Fuzzy Search</h3>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="mastfoot">-->
+<!--<div class="inner">-->
+<!--<ul class="mastfoot-nav">-->
+<!--<li>v{{ app.version }}</li>-->
+<!--<li>·</li>-->
+<!--<li><a href="https://github.com/miwurster/chrome-delicious-fuzzy-search" target="_blank">GitHub</a></li>-->
+<!--<li>·</li>-->
+<!--<li><a href="http://miwurster.github.io/chrome-delicious-fuzzy-search" target="_blank">Web</a></li>-->
+<!--<li>·</li>-->
+<!--<li>-->
+<!--<a-->
+<!--href="https://chrome.google.com/webstore/detail/delicious-fuzzy-search/admielcppgdcffpolmblgophieneodgl"-->
+<!--target="_blank">Chrome Web Store</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!-- build:js({.tmp,app}) scripts/app.js -->
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+<script src="bower_components/ng-clip/src/ngClip.js"></script>
+<script src="scripts/fuse.js"></script>
+<script src="scripts/app.js"></script>
+<!-- endbuild -->
+</body>
+</html>

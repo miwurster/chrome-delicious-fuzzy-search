@@ -24,6 +24,7 @@
   background-color: #212121;
   border-color: #080808;
 }
+
 .btn-inverse:hover,
 .btn-inverse:focus,
 .btn-inverse.focus,
@@ -34,11 +35,13 @@
   background-color: #424242;
   border-color: #212121;
 }
+
 .btn-inverse:active,
 .btn-inverse.active,
 .open > .dropdown-toggle.btn-inverse {
   background-image: none;
 }
+
 .btn-inverse.disabled,
 .btn-inverse[disabled],
 fieldset[disabled] .btn-inverse,
@@ -59,4 +62,51 @@ fieldset[disabled] .btn-inverse:active,
 fieldset[disabled] .btn-inverse.active {
   background-color: #999;
   border-color: #080808;
+}
+
+.list-group-item {
+  text-shadow: none;
+  text-align: left;
+}
+
+.list-group-item-odd {
+  background-color: #F5F5F5;
+}
+
+.form-control {
+  border-color: #42A5F5;
+}
+
+.form-control:focus {
+  border-color: #1976D2;
+}
+
+.label-primary {
+  background-color: #42A5F5;
+}
+
+.label-domain {
+  font-size: 75%;
+  color: #424242;
+}
+
+.fab {
+  margin: auto;
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentcolor;
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  font-size: 20px;
+  background: #1976D2;
+  border: 1px solid #1565C0;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.fab-options {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
 }

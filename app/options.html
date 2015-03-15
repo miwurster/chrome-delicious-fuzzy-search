@@ -20,6 +20,7 @@
 <div class="site-wrapper" ng-controller="SettingsController">
   <div class="site-wrapper-inner">
     <div class="cover-container">
+
       <div class="masthead clearfix">
         <div class="inner">
           <h3 class="masthead-brand">Delicious Fuzzy Search</h3>
@@ -28,6 +29,7 @@
           </ul>
         </div>
       </div>
+
       <!-- COMPLETED STATE -->
       <div class="inner cover" ng-cloak ng-if="STATE === 'COMPLETE'">
         <i class="glyphicon glyphicon-ok" style="font-size: 75px"></i>
@@ -39,6 +41,7 @@
           </a>
         </p>
       </div>
+
       <!-- INCOMPLETED STATE -->
       <div class="inner cover" ng-cloak ng-if="STATE === 'INCOMPLETE'">
         <h1>Delicious Account</h1>
@@ -46,9 +49,11 @@
           perform the action below in order to setup this extension.</p>
         <p class="lead"><a href="{{ app.urls.oauth }}" class="btn btn-default btn-lg">Request Access</a></p>
       </div>
+
       <!-- IN PROGRESS STATE -->
       <div class="inner cover loading" ng-if="STATE === 'IN_PROGRESS'"></div>
       <!-- ERROR STATE -->
+
       <div class="inner cover" ng-cloak ng-if="STATE === 'ERROR'">
         <div class="alert alert-danger">
           <h4>Oops! You got an error!</h4>
@@ -56,6 +61,7 @@
           <p><a href="{{ app.urls.oauth }}" class="btn btn-default">Request Access</a></p>
         </div>
       </div>
+
       <div class="mastfoot">
         <div class="inner">
           <ul class="mastfoot-nav">
@@ -73,13 +79,16 @@
           </ul>
         </div>
       </div>
+
     </div>
   </div>
 </div>
 <!-- build:js({.tmp,app}) scripts/app.js -->
+<script src="bower_components/lodash/lodash.js"></script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower_components/angular/angular.js"></script>
+<script src="scripts/fuse.js"></script>
 <script src="scripts/app.js"></script>
 <!-- endbuild -->
 </body>
