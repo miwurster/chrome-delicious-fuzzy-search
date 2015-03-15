@@ -126,7 +126,7 @@ angular.module('delicious-fuzzy-search', [])
 
       $scope.gotoSettings = function () {
         $window.location = $scope.app.urls.options;
-      }
+      };
     }])
 
   .controller('SettingsController', ['$scope', '$log', '$location', '$http', '$localstorage', 'STATE', 'APP_KEY', 'APP_KEY_SECRET',
