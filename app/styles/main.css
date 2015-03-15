@@ -1,0 +1,62 @@
+/*
+ * Colors:
+ *  - primary #1E88E5
+ */
+
+/* Alert */
+.alert > div > p,
+.alert > div > ul {
+  margin-bottom: 0;
+}
+
+.alert > div > p + p {
+  margin-top: 5px;
+}
+
+.alert-danger {
+  background: #D32F2F;
+  color: #fff;
+}
+
+/* btn-inverse styel */
+.btn-inverse {
+  color: #fff;
+  background-color: #212121;
+  border-color: #080808;
+}
+.btn-inverse:hover,
+.btn-inverse:focus,
+.btn-inverse.focus,
+.btn-inverse:active,
+.btn-inverse.active,
+.open > .dropdown-toggle.btn-inverse {
+  color: #fff;
+  background-color: #424242;
+  border-color: #212121;
+}
+.btn-inverse:active,
+.btn-inverse.active,
+.open > .dropdown-toggle.btn-inverse {
+  background-image: none;
+}
+.btn-inverse.disabled,
+.btn-inverse[disabled],
+fieldset[disabled] .btn-inverse,
+.btn-inverse.disabled:hover,
+.btn-inverse[disabled]:hover,
+fieldset[disabled] .btn-inverse:hover,
+.btn-inverse.disabled:focus,
+.btn-inverse[disabled]:focus,
+fieldset[disabled] .btn-inverse:focus,
+.btn-inverse.disabled.focus,
+.btn-inverse[disabled].focus,
+fieldset[disabled] .btn-inverse.focus,
+.btn-inverse.disabled:active,
+.btn-inverse[disabled]:active,
+fieldset[disabled] .btn-inverse:active,
+.btn-inverse.disabled.active,
+.btn-inverse[disabled].active,
+fieldset[disabled] .btn-inverse.active {
+  background-color: #999;
+  border-color: #080808;
+}

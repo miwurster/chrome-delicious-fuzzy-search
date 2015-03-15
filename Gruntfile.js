@@ -90,14 +90,13 @@ module.exports = function (grunt) {
 
     // Empties folders to start fresh
     clean: {
-      chrome: {
-      },
+      chrome: {},
       dist: {
         files: [{
           dot: true,
           src: [
             '<%= config.dist %>/*',
-            '!<%= config.dist %>/.git*'
+            '.tmp'
           ]
         }]
       }
@@ -142,18 +141,22 @@ module.exports = function (grunt) {
         dest: '<%= config.dist %>'
       },
       html: [
-        '<%= config.app %>/popup.html',
+        '<%= config.app %>/search.html',
         '<%= config.app %>/options.html'
       ]
     },
 
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
-      options: {
-        assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
-      },
       html: ['<%= config.dist %>/{,*/}*.html'],
-      css: ['<%= config.dist %>/styles/{,*/}*.css']
+      css: ['<%= config.dist %>/styles/{,*/}*.css'],
+      options: {
+        assetsDirs: [
+          '<%= config.dist %>',
+          '<%= config.dist %>/images',
+          '<%= config.dist %>/styles'
+        ]
+      }
     },
 
     // The following *-min tasks produce minifies files in the dist folder
@@ -237,9 +240,10 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             'images/{,*/}*.{webp,gif}',
             '{,*/}*.html',
-            'styles/{,*/}*.css',
-            'styles/fonts/{,*/}*.*',
+            //'styles/{,*/}*.css',
+            //'styles/fonts/{,*/}*.*',
             '_locales/{,*/}*.json',
+            'fonts/*'
           ]
         }]
       }
@@ -247,14 +251,12 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up build process
     concurrent: {
-      chrome: [
-      ],
+      chrome: [],
       dist: [
         'imagemin',
         'svgmin'
       ],
-      test: [
-      ]
+      test: []
     },
 
     // Auto buildnumber, exclude debug files. smart builds that event pages
@@ -279,9 +281,9 @@ module.exports = function (grunt) {
     compress: {
       dist: {
         options: {
-          archive: function() {
+          archive: function () {
             var manifest = grunt.file.readJSON('app/manifest.json');
-            return 'package/chrome delicious fuzzy search-' + manifest.version + '.zip';
+            return 'package/delicious-fuzzy-search-' + manifest.version + '.zip';
           }
         },
         files: [{
@@ -310,14 +312,15 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'chromeManifest:dist',
     'useminPrepare',
+    'chromeManifest:dist',
     'concurrent:dist',
-    'cssmin',
     'concat',
+    'cssmin',
     'uglify',
     'copy',
     'usemin',
+    //'htmlmin',
     'compress'
   ]);
 

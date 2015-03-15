@@ -1,33 +1,85 @@
 <!DOCTYPE html>
 <html ng-app="delicious-fuzzy-search" ng-csp>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="Delicious Fuzzy Search is a Chrome browser extension allowing you to fuzzy search your Delicious bookmarks.">
+  <meta name="author" content="Michael Wurster">
   <title>Settings: Delicious Fuzzy Search</title>
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
-  <!-- build:css(.) styles/vendor.css -->
-  <link href="bower_components/angular-material/angular-material.css" rel="stylesheet">
-  <!-- endbuild -->
-  <!-- build:css(.tmp) styles/main.css -->
+  <!-- build:css({.tmp,app}) styles/main.css -->
+  <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  <link href="bower_components/angular/angular-csp.css" rel="stylesheet">
+  <link href="styles/cover.css" rel="stylesheet">
+  <link href="styles/animation.css" rel="stylesheet">
   <link href="styles/main.css" rel="stylesheet">
   <!-- endbuild -->
 </head>
-<body layout="column">
-<md-toolbar layout="row">
-  <h1>Hello World</h1>
-</md-toolbar>
-<div layout="row" flex>
-  <div layout="column" flex id="content">
-    <md-content layout="column" flex class="md-padding">
-    Hallo
-    </md-content>
+<body ng-controller="AppController">
+<div class="site-wrapper" ng-controller="SettingsController">
+  <div class="site-wrapper-inner">
+    <div class="cover-container">
+      <div class="masthead clearfix">
+        <div class="inner">
+          <h3 class="masthead-brand">Delicious Fuzzy Search</h3>
+          <ul class="nav masthead-nav">
+            <li><a href="#" ng-click="resetSettings()">Reset Settings</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- COMPLETED STATE -->
+      <div class="inner cover" ng-cloak ng-if="STATE === 'COMPLETE'">
+        <i class="glyphicon glyphicon-ok" style="font-size: 75px"></i>
+        <h2>Setup Complete</h2>
+        <br>
+        <p class="lead">
+          <a href="#" class="btn btn-inverse btn-sm" ng-click="closeSettings()">
+            Close Options
+          </a>
+        </p>
+      </div>
+      <!-- INCOMPLETED STATE -->
+      <div class="inner cover" ng-cloak ng-if="STATE === 'INCOMPLETE'">
+        <h1>Delicious Account</h1>
+        <p class="lead">Delicious Fuzzy Search for Chrome requires access to your Delicious account. Please
+          perform the action below in order to setup this extension.</p>
+        <p class="lead"><a href="{{ app.urls.oauth }}" class="btn btn-default btn-lg">Request Access</a></p>
+      </div>
+      <!-- IN PROGRESS STATE -->
+      <div class="inner cover loading" ng-if="STATE === 'IN_PROGRESS'"></div>
+      <!-- ERROR STATE -->
+      <div class="inner cover" ng-cloak ng-if="STATE === 'ERROR'">
+        <div class="alert alert-danger">
+          <h4>Oops! You got an error!</h4>
+          <p>An error occurred while trying to request your personal access token. Please try again!</p>
+          <p><a href="{{ app.urls.oauth }}" class="btn btn-default">Request Access</a></p>
+        </div>
+      </div>
+      <div class="mastfoot">
+        <div class="inner">
+          <ul class="mastfoot-nav">
+            <li>v1.6.1</li>
+            <li>·</li>
+            <li><a href="https://github.com/miwurster/chrome-delicious-fuzzy-search" target="_blank">GitHub</a></li>
+            <li>·</li>
+            <li><a href="http://miwurster.github.io/chrome-delicious-fuzzy-search" target="_blank">Web</a></li>
+            <li>·</li>
+            <li>
+              <a
+                href="https://chrome.google.com/webstore/detail/delicious-fuzzy-search/admielcppgdcffpolmblgophieneodgl"
+                target="_blank">Chrome Web Store</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- build:js(.) scripts/vendor.js -->
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-aria/angular-aria.js"></script>
-<script src="bower_components/angular-animate/angular-animate.js"></script>
-<script src="bower_components/angular-material/angular-material.js"></script>
-<!-- endbuild -->
 <!-- build:js({.tmp,app}) scripts/app.js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular/angular.js"></script>
 <script src="scripts/app.js"></script>
 <!-- endbuild -->
 </body>
