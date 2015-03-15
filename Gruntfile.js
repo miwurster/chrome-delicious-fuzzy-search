@@ -321,7 +321,6 @@ module.exports = function (grunt) {
     'uglify',
     'copy',
     'usemin',
-    //'htmlmin',
     'compress'
   ]);
 
